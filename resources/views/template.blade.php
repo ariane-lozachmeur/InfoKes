@@ -57,6 +57,12 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="{{url('js/materialize.js')}}"></script>
   <script src="{{url('js/init.js')}}"></script>
+  <script type="text/javascript">
+    var session = {!!json_encode($session)!!}
+  if (typeof(session.message) !== 'undefined') {
+     Materialize.toast(session.message, 4000);
+   }
+    </script>
   @yield('footer')
 </body>
 </html>

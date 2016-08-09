@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Article;
+use App\Model\Categorie;
 use App\Http\Requests;
 
 class ArticleController extends Controller
@@ -27,6 +28,8 @@ class ArticleController extends Controller
     {
         $data=[];
         $data['page']='create';
+        $data['categories']=Categorie::all();
+        $data['session']=\Session::all();
         return view('create',$data);
     }
 
@@ -40,8 +43,17 @@ class ArticleController extends Controller
     {
         $input=$request->all();
         $article = New Article;
-        $article->save($input);
-        return redirect('/');
+        $article->titre=$input['titre'];
+        $article->auteur=$input['auteur'];
+        $article->contenu=$input['contenu'];
+        $article->published_at=$input['published_at'];
+        $article->presentation=$input['presentation'];
+        $article->cat_id=$input['cat_id'];
+        $article->relu=false;
+        //$article->image=$input['image'];
+        $article->fichier=$input['fichier'];
+        $article->save();
+        return redirect('/')->with('message','Merci d\'avoir publié cet article ! Il sera mis en ligne au plus tôt.');
     }
 
     /**
@@ -55,6 +67,7 @@ class ArticleController extends Controller
         $data=[];
         $data['article']=Article::findOrFail($id);
         $data['page']='show';
+        $data['session']=\Session::all();
         return view('show',$data);
     }
 

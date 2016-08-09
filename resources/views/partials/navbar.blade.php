@@ -1,9 +1,8 @@
 <ul id="rubriques" class="dropdown-content transparent"><br>
-  <li class="white "><a class="blue-text text-darken-2" href="#!">one</a></li>
+@foreach ($categories as $cat)
+  <li class="white "><a class="blue-text text-darken-2" href="#!">{{$cat->name}}</a></li>
   <li class="divider"></li>
-  <li class="white"><a class="blue-text text-darken-2" href="#!">two</a></li>
-  <li class="divider"></li>
-  <li class="white"><a class="blue-text text-darken-2" href="#!">three</a></li>
+  @endforeach
   </ul>
 
 <div class="navbar-fixed">  
@@ -27,10 +26,9 @@
        <li><a class="collapsible-header">Rubriques</a>
             <div class="collapsible-body">
               <ul>
-                <li><a href="#!">First</a></li>
-                <li><a href="#!">Second</a></li>
-                <li><a href="#!">Third</a></li>
-                <li><a href="#!">Fourth</a></li>
+              @foreach ($categories as $cat)
+                <li><a href="#!">{{$cat->name}}</a></li>
+              @endforeach
               </ul>
             </div>
         </li>
