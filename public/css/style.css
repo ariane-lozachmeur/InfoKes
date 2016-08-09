@@ -1,0 +1,45 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+ body{
+ 	background-color:#eeeeee;
+ }
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+
+.home-photo{
+    margin-top:-64px;
+}
+.nav-perso{
+	margin:0px 40px;
+}
+
+.card-image {
+ 	position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #000;
+}
+  
+ .card-image img {
+    position: absolute;
+    display: block;
+    height: 100%; /* all images at least fill the height */
+    top: 50%; /* top, left, transform trick to vertically and horizontally center image */
+    left: 50%;
+  }
+
+  .form-container{
+    padding:0px 30px;
+  }
+}
