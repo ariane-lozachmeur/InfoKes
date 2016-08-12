@@ -1,8 +1,7 @@
 @extends('template')
 @section('title') InfoKès @stop
 
-@section('content')
-
+@section('homeHead')
 <div class="slider home-photo">
 	<ul class="slides">
 		<li>
@@ -16,62 +15,54 @@
 		</li>
 	</ul>
 </div>
+@stop
 
-<div class="container">
-	<div class="section">
-		<div class="row">
-			<br>
-			<br>
-			<br>
-			<div class="col s6 m4 ">
-				<div class="card">
-					<div class="card-image">
-						<img src="img/sample.jpg">
-						<span class="card-title">Suicide Squad</span>
-					</div>
-					<div class="card-content">
-						<p>Suicide Squad est le film le plus attendu de l'été. Pourtant, sa sortie a été loin d'être admirée par la critique. Voyons pourquoi.</p>
-					</div>
-					<div class="card-action">
-						<a class="blue-text" href="#">Lire l'article</a>
-					</div>
-				</div>
+@section('content')
+
+<div class="row">
+	@foreach($articles as $article)
+	<div class="col s6 m4">
+		<div class="card">
+			<div class="card-image">
+				<img src="img/sample.jpg">
+				<span class="card-title">{{$article->titre}}</span>
 			</div>
-
-			<div class="col s6 m4">
-				<div class="card">
-					<div class="card-image">
-						<img src="img/sample2.jpg">
-						<span class="card-title">Suicide Squad</span>
-					</div>
-					<div class="card-content">
-						<p>Suicide Squad est le film le plus attendu de l'été. Pourtant, sa sortie a été loin d'être admirée par la critique. Voyons pourquoi.</p>
-					</div>
-					<div class="card-action">
-						<a class="blue-text" href="#">Lire l'article</a>
-					</div>
-				</div>
+			<div class="card-content home-card">
+				<p>{{$article->presentation}}</p>
 			</div>
-
-			<div class="col s6 m4">
-				<div class="card">
-					<div class="card-image">
-						<img src="img/sample3.jpg">
-						<span class="card-title">Suicide Squad</span>
-					</div>
-					<div class="card-content">
-						<p>Suicide Squad est le film le plus attendu de l'été. Pourtant, sa sortie a été loin d'être admirée par la critique. Voyons pourquoi.</p>
-					</div>
-					<div class="card-action">
-						<a class="blue-text" href="#">Lire l'article</a>
-					</div>
-				</div>
-			</div>	
-
+			<div class="card-action">
+				<a class="blue-text" href="{{url('article')}}/{{$article->id}}">Lire l'article</a>
+			</div>
 		</div>
 	</div>
+	@endforeach
 </div>
+@stop
 
+@section('side')
+      @foreach ($actuskes as $actu)
+          <div class="card blue darken-3">
+            <div class="card-content white-text">
+              <span class="card-title">Actus {{$actu->poste}}</span>
+              <p>{{$actu->contenu}}</p>
+            </div>
+            <div class="card-action">
+              <a href="#" class="white-text savoir-plus" data-id="{{$actu->id}}">En savoir plus</a>
+            </div>
+          </div>
+    @endforeach
 
+<!-- Modal for actuskes -->
+<div id="modalActus" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4 class="titre"></h4>
+      <p class="contenu"></p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Fermer</a>
+    </div>
+  </div>
+@stop
+@section('footer')
 
 @stop

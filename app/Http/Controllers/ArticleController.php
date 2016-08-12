@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Model\Article;
 use App\Model\Categorie;
 use App\Http\Requests;
+use Carbon\Carbon;
+
 
 class ArticleController extends Controller
 {
@@ -30,7 +32,7 @@ class ArticleController extends Controller
         $data['page']='create';
         $data['categories']=Categorie::all();
         $data['session']=\Session::all();
-        return view('create',$data);
+        return view('articles.create',$data);
     }
 
     /**
@@ -46,12 +48,12 @@ class ArticleController extends Controller
         $article->titre=$input['titre'];
         $article->auteur=$input['auteur'];
         $article->contenu=$input['contenu'];
+        $article->image=$input['image'];
+        $article->fichier=$input['fichier'];
         $article->published_at=$input['published_at'];
         $article->presentation=$input['presentation'];
         $article->cat_id=$input['cat_id'];
         $article->relu=false;
-        //$article->image=$input['image'];
-        $article->fichier=$input['fichier'];
         $article->save();
         return redirect('/')->with('message','Merci d\'avoir publié cet article ! Il sera mis en ligne au plus tôt.');
     }
@@ -66,9 +68,12 @@ class ArticleController extends Controller
     {
         $data=[];
         $data['article']=Article::findOrFail($id);
+        $data['cat']=Categorie::find($data['article']->cat_id);
         $data['page']='show';
+        $data['categories']=Categorie::all();
         $data['session']=\Session::all();
-        return view('show',$data);
+        $data['newskes']=NewsKesController::getNews();
+        return view('articles.show',$data);
     }
 
     /**
@@ -79,10 +84,13 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        $data=[];
+       $data=[];
         $data['article']=Article::findOrFail($id);
-        $data['page']='edit';
-        return view('edit',$data);
+        $data['cat']=Categorie::find($data['article']->cat_id);
+        $data['page']='show';
+        $data['categories']=Categorie::all();
+        $data['session']=\Session::all();
+        return view('articles.edit',$data);
     }
 
     /**
@@ -94,7 +102,17 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input=$request->all();
+        $article=Article::find($id);
+        $article->titre=$input['titre'];
+        $article->auteur=$input['auteur'];
+        $article->contenu=$input['contenu'];
+        $article->image=$input['image'];
+        $article->presentation=$input['presentation'];
+        $article->cat_id=$input['cat_id'];
+        $article->relu=false;
+        $article->save();
+        return redirect('/article/{$id}  ')->with('message','Merci d\'avoir édité cet article ! Il sera remis en ligne une fois relu');
     }
 
     /**
@@ -106,5 +124,10 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public static function getArticles($nombre){
+        $articles = Article::where('published_at','>','Carbon::now()')->latest('published_at')->paginate($nombre);
+        return $articles;
     }
 }

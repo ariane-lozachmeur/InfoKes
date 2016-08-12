@@ -13,17 +13,17 @@
 
 Route::get('/', 'PagesController@home');
 
+Route::post('/article/{id}', 'ArticleController@update');
+
 Route::resource('article', 'ArticleController');
+
+Route::resource('khote', 'KhoteController');
+
+Route::resource('actuskes','actusKesController');
 
 Route::get('/jeux','PagesController@jeux');
 
-Route::get('/actuskes','PagesController@actuskes');
-
-Route::get('/khotes','PagesController@khotes');
-
 Route::get('/rubrique/{$type}','PagesController@rubrique');
-
-Route::post('/rediger','FormController@postArticle');
 
 
 

@@ -4,8 +4,7 @@
 
 @section('content')
 
-<div class="container">
-	<div class="section">
+
 		<div class="row white form-container">
 		{{Form::open(array('class'=>'col s12','url'=>'article'))}}
 				<div class="row">
@@ -34,14 +33,23 @@
 						<textarea name="contenu" class="materialize-textarea validate"></textarea>
 						<label for="contenu">Écrit ton article ici</label>
 					</div>
-					<p>Ou upload un fichier Word ou OpenOffice (mais ton article ne sera pas immédiatement sur le site).</p>
+					<p>Ou poste un fichier Word ou OpenOffice (mais ton article ne sera pas immédiatement sur le site).</p>
 					<div class="file-field input-field">
 						<div class="btn blue darken-3">
-							<span>Upload</span>
+							<span>Article</span>
 							<input type="file" name="fichier">
 						</div>
 						<div class="file-path-wrapper">
-							<input class="file-path validate" type="text">
+							<input class="file-path validate" type="text" placeholder="Tu peux uploader un fichier Word ou Open Office">
+						</div>
+					</div>
+					<div class="file-field input-field">
+						<div class="btn blue darken-3">
+							<span>Photos</span>
+							<input type="file" name="image">
+						</div>
+						<div class="file-path-wrapper">
+							<input class="file-path validate" type="text" placeholder="Upload une ou plusiers photos pour illuster ton article" multiple>
 						</div>
 					</div>
 					<div class="input-field col s12">
@@ -55,7 +63,5 @@
 		</div>
 
 	</div>
-</div>
-</div>
 
 @stop

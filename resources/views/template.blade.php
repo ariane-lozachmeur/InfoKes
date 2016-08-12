@@ -15,7 +15,18 @@
 
   @include('partials.navbar')
 
-  @yield('content')
+  @yield('homeHead')
+  
+  <div class="container margin-top">
+    <div class="row">
+      <div class="col s12 m9">
+        @yield('content')
+      </div>
+      <div class="row col s12 m3" id="aside">
+        @yield('side')
+      </div>
+    </div>
+  </div>
 
   <footer class="page-footer blue lighten-2">
     <div class="container">
@@ -56,12 +67,37 @@
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="{{url('js/materialize.js')}}"></script>
+  <script src="{{url('js/jquery.dotdotdot.min.js')}}"></script>
   <script src="{{url('js/init.js')}}"></script>
   <script type="text/javascript">
     var session = {!!json_encode($session)!!}
   if (typeof(session.message) !== 'undefined') {
-     Materialize.toast(session.message, 4000);
-   }
+     Materialize.toast(session.message, 4000,'message_success');
+  }
+
+  $(document).ready(function(){
+// $('#aside').pushpin({ top: $('#aside').offset().top, offset:100 });
+$(".card-content").dotdotdot({
+    ellipsis  : '... ',
+    wrap    : 'word',
+    fallbackToLetter: true,
+    after   : null,
+    watch   : true,
+    height    : null,
+    tolerance : 20,
+    /*  Callback function that is fired after the ellipsis is added,
+      receives two parameters: isTruncated(boolean), orgContent(string). */
+    callback  : function( isTruncated, orgContent ) {},
+    lastCharacter : {
+      /*  Remove these characters from the end of the truncated text. */
+      remove    : [ ' ', ',', ';', '.', '!', '?' ],
+      /*  Don't add an ellipsis if this array contains 
+        the last character of the truncated text. */
+      noEllipsis  : []
+    }
+  });
+});
+
     </script>
   @yield('footer')
 </body>
