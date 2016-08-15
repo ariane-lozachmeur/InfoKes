@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Article;
+use App\Model\Commentaire;
 use App\Model\Categorie;
 use App\Http\Requests;
 use Carbon\Carbon;
+use Session;
 
 
 class ArticleController extends Controller
@@ -31,7 +33,7 @@ class ArticleController extends Controller
         $data=[];
         $data['page']='create';
         $data['categories']=Categorie::all();
-        $data['session']=\Session::all();
+        $data['session']=Session::all();
         return view('articles.create',$data);
     }
 
@@ -67,12 +69,14 @@ class ArticleController extends Controller
     public function show($id)
     {
         $data=[];
-        $data['article']=Article::findOrFail($id);
+        $article = Article::findOrFail($id);
+        $data['article']=$article;
         $data['cat']=Categorie::find($data['article']->cat_id);
         $data['page']='show';
         $data['categories']=Categorie::all();
-        $data['session']=\Session::all();
-        $data['newskes']=NewsKesController::getNews();
+        $data['session']=Session::all();
+        $data['actuskes']=ActusKesController::getActus();
+        $data['commentaires']=$article->commentaires()->paginate(4);
         return view('articles.show',$data);
     }
 
@@ -89,7 +93,7 @@ class ArticleController extends Controller
         $data['cat']=Categorie::find($data['article']->cat_id);
         $data['page']='show';
         $data['categories']=Categorie::all();
-        $data['session']=\Session::all();
+        $data['session']=Session::all();
         return view('articles.edit',$data);
     }
 
@@ -112,7 +116,7 @@ class ArticleController extends Controller
         $article->cat_id=$input['cat_id'];
         $article->relu=false;
         $article->save();
-        return redirect('/article/{$id}  ')->with('message','Merci d\'avoir édité cet article ! Il sera remis en ligne une fois relu');
+        return redirect("/article/$id")->with('message','Merci d\'avoir édité cet article ! Il sera remis en ligne une fois relu');
     }
 
     /**
@@ -129,5 +133,16 @@ class ArticleController extends Controller
     public static function getArticles($nombre){
         $articles = Article::where('published_at','>','Carbon::now()')->latest('published_at')->paginate($nombre);
         return $articles;
+    }
+
+    public static function ajouterCommentaire(Request $request, $id){
+        $input=$request->all();
+        $commentaire = New Commentaire;
+        $commentaire->auteur=$input['auteur'];
+        $commentaire->contenu=$input['contenu'];
+        $commentaire->save();
+        $article = Article::find($id);
+        $article->commentaires()->attach($commentaire);
+        return redirect("article/$id");
     }
 }

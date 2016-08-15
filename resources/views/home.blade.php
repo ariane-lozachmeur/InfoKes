@@ -27,7 +27,7 @@
 				<img src="img/sample.jpg">
 				<span class="card-title">{{$article->titre}}</span>
 			</div>
-			<div class="card-content home-card">
+			<div class="card-content dotdotdot home-card">
 				<p>{{$article->presentation}}</p>
 			</div>
 			<div class="card-action">
@@ -42,7 +42,7 @@
 @section('side')
       @foreach ($actuskes as $actu)
           <div class="card blue darken-3">
-            <div class="card-content white-text">
+            <div class="card-content dotdotdot white-text">
               <span class="card-title">Actus {{$actu->poste}}</span>
               <p>{{$actu->contenu}}</p>
             </div>

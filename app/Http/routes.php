@@ -15,6 +15,8 @@ Route::get('/', 'PagesController@home');
 
 Route::post('/article/{id}', 'ArticleController@update');
 
+Route::post('/article/{id}/commentaire','ArticleController@ajouterCommentaire');
+
 Route::resource('article', 'ArticleController');
 
 Route::resource('khote', 'KhoteController');

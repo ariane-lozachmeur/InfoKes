@@ -57,7 +57,8 @@
 						<label for="published_at">Date de publication</label>
 					</div>
 					<div class="input-field col s12 center-align">
-					<input type="submit" class="btn blue darken-3" value="Publier">
+						<input type="submit" class="btn blue darken-3" value="Publier">
+					</div>
 				</div>
 			{{Form::close()}}
 		</div>

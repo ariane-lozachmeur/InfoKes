@@ -68,36 +68,12 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="{{url('js/materialize.js')}}"></script>
   <script src="{{url('js/jquery.dotdotdot.min.js')}}"></script>
-  <script src="{{url('js/init.js')}}"></script>
+  <script src="{{url('js/init.blade.js')}}"></script>
   <script type="text/javascript">
     var session = {!!json_encode($session)!!}
   if (typeof(session.message) !== 'undefined') {
      Materialize.toast(session.message, 4000,'message_success');
   }
-
-  $(document).ready(function(){
-// $('#aside').pushpin({ top: $('#aside').offset().top, offset:100 });
-$(".card-content").dotdotdot({
-    ellipsis  : '... ',
-    wrap    : 'word',
-    fallbackToLetter: true,
-    after   : null,
-    watch   : true,
-    height    : null,
-    tolerance : 20,
-    /*  Callback function that is fired after the ellipsis is added,
-      receives two parameters: isTruncated(boolean), orgContent(string). */
-    callback  : function( isTruncated, orgContent ) {},
-    lastCharacter : {
-      /*  Remove these characters from the end of the truncated text. */
-      remove    : [ ' ', ',', ';', '.', '!', '?' ],
-      /*  Don't add an ellipsis if this array contains 
-        the last character of the truncated text. */
-      noEllipsis  : []
-    }
-  });
-});
-
     </script>
   @yield('footer')
 </body>

@@ -1,10 +1,48 @@
+console.log('article/'+article.id+'?page=2');
 (function($){
   $(function(){
     $('.button-collapse').sideNav();
   }); // end of document ready
 })(jQuery); // end of jQuery name space
 
+function loadMoreCommentaires(){
+   $.ajax({
+    method: 'GET',
+    url: article.id+'?page=2',
+    data: "",
+    dataType:"html", 
+  })
+    .done(function(data) {
+      console.log(data);
+    })
+    .fail(function(data){
+      alert('fail');
+      console.log(data);
+    })
+}
+
 $(document).ready(function(){
+
+  $(".dotdotdot").dotdotdot({
+    ellipsis  : '... ',
+    wrap    : 'word',
+    fallbackToLetter: true,
+    after   : null,
+    watch   : true,
+    height    : null,
+    tolerance : 20,
+    /*  Callback function that is fired after the ellipsis is added,
+      receives two parameters: isTruncated(boolean), orgContent(string). */
+    callback  : function( isTruncated, orgContent ) {},
+    lastCharacter : {
+      /*  Remove these characters from the end of the truncated text. */
+      remove    : [ ' ', ',', ';', '.', '!', '?' ],
+      /*  Don't add an ellipsis if this array contains 
+        the last character of the truncated text. */
+      noEllipsis  : []
+    }
+  });
+
 	$(".dropdown-content").dropdown();
 
 	 $('.slider').slider({
@@ -65,6 +103,6 @@ $('.savoir-plus').on('click', function (event) {
       modal.find('.contenu').text(data.contenu);
     })
     .fail(function(data){
-      console.log(data);
+      //console.log(data);
     })
 })

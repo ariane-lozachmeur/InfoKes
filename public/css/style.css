@@ -110,4 +110,32 @@
     height : 200px;
   }
 
+  h5.small{
+    font-size: 20px !important;
+    font-weight: 300;
+  }
+
+  .commentaires-form{
+    border-top: 3px solid #e0e0e0;
+    background-color: #eeeeee
+  }
+
+  .justify{
+    text-align:justify;
+  }
+
+  .commentaire{
+    max-height: 150px;
+  }
+
+  .plus-commentaires{
+    width:90%;
+    margin:auto;
+    margin-top:20px;
+    height:30px;
+    background-color: #eeeeee;
+    border:2px solid #bdbdbd;
+    border-radius: 10px;
+    text-align: center;
+  }
 }
