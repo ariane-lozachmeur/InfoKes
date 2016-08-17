@@ -13,9 +13,17 @@
 
 Route::get('/', 'PagesController@home');
 
+Route::get('/jeux','PagesController@jeux');
+
 Route::post('/article/{id}', 'ArticleController@update');
 
+Route::post('/categorie/{id}', 'CatController@update');
+
+Route::post('/actuskes/{id}', 'ActusKesController@update');
+
 Route::post('/article/{id}/commentaire','ArticleController@ajouterCommentaire');
+
+Route::post('/article/{id}/valider','ArticleController@valider');
 
 Route::resource('article', 'ArticleController');
 
@@ -23,9 +31,8 @@ Route::resource('khote', 'KhoteController');
 
 Route::resource('actuskes','actusKesController');
 
-Route::get('/jeux','PagesController@jeux');
+Route::resource('categorie','CatController');
 
-Route::get('/rubrique/{$type}','PagesController@rubrique');
 
 
 

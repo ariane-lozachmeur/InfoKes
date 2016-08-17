@@ -3,6 +3,8 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <meta name="_token" content="{!! csrf_token() !!}"/>
+
   <title>@yield('title')</title>
 
   <!-- CSS  -->
@@ -12,19 +14,24 @@
   @yield('header')
 </head>
 <body>
-
   @include('partials.navbar')
 
   @yield('homeHead')
   
   <div class="container margin-top">
     <div class="row">
+      @if($side==true)
       <div class="col s12 m9">
         @yield('content')
       </div>
       <div class="row col s12 m3" id="aside">
         @yield('side')
       </div>
+      @else
+       <div class="col s12 m12">
+        @yield('content')
+      </div>
+      @endif
     </div>
   </div>
 
@@ -69,6 +76,9 @@
   <script src="{{url('js/materialize.js')}}"></script>
   <script src="{{url('js/jquery.dotdotdot.min.js')}}"></script>
   <script src="{{url('js/init.blade.js')}}"></script>
+  <script src="{{url('js/moment-with-locales.min.js')}}"></script>
+
+  
   <script type="text/javascript">
     var session = {!!json_encode($session)!!}
   if (typeof(session.message) !== 'undefined') {

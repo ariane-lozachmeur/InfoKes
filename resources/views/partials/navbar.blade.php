@@ -3,7 +3,16 @@
   <li class="white "><a class="blue-text text-darken-2" href="#!">{{$cat->name}}</a></li>
   <li class="divider"></li>
   @endforeach
-  </ul>
+</ul>
+
+<ul id="admin" class="dropdown-content transparent"><br>
+  <li class="white "><a class="blue-text text-darken-2" href="{{url('article')}}">Valider les articles</a></li>
+  <li class="divider"></li>
+    <li class="white "><a class="blue-text text-darken-2" href="{{url('khote')}}">Voir les khotes</a></li>
+  <li class="divider"></li>
+    <li class="white "><a class="blue-text text-darken-2" href="{{url('categorie')}}">Gérer les rubriques</a></li>
+  <li class="divider"></li>
+</ul>
 
 <div class="navbar-fixed">  
 <nav class="{{$page==='home' ? 'transparent' : 'blue' }} darken-3" role="navigation" id="navbar">
@@ -13,6 +22,8 @@
         <li><a class="dropdown-button" href="#!" data-activates="rubriques">Rubriques</a></li>
         <li><a href="{{url('actuskes')}}">Actus Kès</a></li>
         <li><a href="{{url('jeux')}}">Jeux</a></li>
+        <li><a class="dropdown-button" href="#!" data-activates="admin">Administration</a></li>
+
       </ul>
     <ul class="right hide-on-med-and-down"> 
       <li><a href="{{url('article/create')}}">Télécharger l'IK</a></li>

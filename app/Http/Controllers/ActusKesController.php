@@ -23,6 +23,7 @@ class ActusKesController extends Controller
         $data['categories']=Categorie::all();
         $data['session']=\Session::all();
         $data['actuskes']=ActusKesController::getActus();
+        $data['side']=false;
         return view('actuskes.index',$data);
 
     }
@@ -39,6 +40,7 @@ class ActusKesController extends Controller
         $data['categories']=Categorie::all();
         $data['session']=\Session::all();
         $data['postes']=['IK','Relex','Specto','Trézo','SecGen','Archi','Inter','Binet','Mili','Sport','Com','Ens'];
+        $data['side']=false;
         return view('actuskes.create',$data);
     }
 
@@ -82,7 +84,14 @@ class ActusKesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data=[];
+        $data['page']='actuskes';
+        $data['categories']=Categorie::all();
+        $data['session']=\Session::all();
+        $data['actuskes']=ActusKesController::getActus();
+        $data['side']=false;
+        $data['actu']=ActusKes::find($id);
+        return view('actuskes.edit',$data);
     }
 
     /**
@@ -94,7 +103,16 @@ class ActusKesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input=$request->all();
+        $actuskes = Actuskes::find($id);
+        $actuskes->titre=$input['titre'];
+        $actuskes->contenu=$input['contenu'];
+        $actuskes->user_id=null;
+        $actuskes->published_at=$input['published_at'];
+        $actuskes->published_until=$input['published_until'];
+        $actuskes->relu=false;
+        $actuskes->save();
+        return redirect('actuskes')->with('message','Ta news Kès a bien été modifiée ');
     }
 
     /**
@@ -105,12 +123,15 @@ class ActusKesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $actu = Actuskes::find($id);
+        $actu->destory();
+        return '{"message":"success"}';
     }
 
     public static function getActus(){
         return Actuskes::where('published_at','<=',Carbon::now())
                         ->where('published_until','>',Carbon::now())
+                        ->latest('published_at')
                         ->get();
     }
 }

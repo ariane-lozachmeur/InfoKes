@@ -20,7 +20,14 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        redirect('/');
+        $data=[];
+        $data['page']='create';
+        $data['categories']=Categorie::all();
+        $data['session']=Session::all();
+        $data['side']=false;
+        $data['articles']=ArticleController::getArticlesRelire();
+        $data['actuskes']=ActusKesController::getActus();
+        return view('articles.index',$data);
     }
 
     /**
@@ -34,6 +41,7 @@ class ArticleController extends Controller
         $data['page']='create';
         $data['categories']=Categorie::all();
         $data['session']=Session::all();
+        $data['side']=false;
         return view('articles.create',$data);
     }
 
@@ -77,6 +85,7 @@ class ArticleController extends Controller
         $data['session']=Session::all();
         $data['actuskes']=ActusKesController::getActus();
         $data['commentaires']=$article->commentaires()->paginate(4);
+        $data['side']=true;
         return view('articles.show',$data);
     }
 
@@ -88,12 +97,13 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-       $data=[];
+        $data=[];
         $data['article']=Article::findOrFail($id);
         $data['cat']=Categorie::find($data['article']->cat_id);
         $data['page']='show';
         $data['categories']=Categorie::all();
         $data['session']=Session::all();
+        $data['side']=false;
         return view('articles.edit',$data);
     }
 
@@ -130,8 +140,25 @@ class ArticleController extends Controller
         //
     }
 
+    public function valider($id)
+    {
+        $article = Article::find($id);
+        $article->relu=true;
+        $article->save();
+        return '{"message" : "success"}';
+    }
+
     public static function getArticles($nombre){
-        $articles = Article::where('published_at','>','Carbon::now()')->latest('published_at')->paginate($nombre);
+        $articles = Article::where('published_at','>','Carbon::now()')
+                            ->where('relu',true)
+                            ->latest('published_at')
+                            ->paginate($nombre);
+        return $articles;
+    }
+
+    public static function getArticlesRelire(){
+        $articles = Article::where('relu',false)
+                            ->get();
         return $articles;
     }
 

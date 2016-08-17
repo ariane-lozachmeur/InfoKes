@@ -1,4 +1,3 @@
-console.log('article/'+article.id+'?page=2');
 (function($){
   $(function(){
     $('.button-collapse').sideNav();
@@ -101,6 +100,75 @@ $('.savoir-plus').on('click', function (event) {
       var modal = $("#modalActus");
       modal.find('.titre').text(data.titre);
       modal.find('.contenu').text(data.contenu);
+    })
+    .fail(function(data){
+      //console.log(data);
+    })
+})
+
+$('.delete').on('click', function (event) {
+  console.log('delete')
+  var button = $(this)
+  var name = button.data('name')
+  var modal = $("#modalDelete");
+  console.log(button.data('id'));
+  modal.openModal();
+  modal.find('#titre').text('Supprimer la rubrique '+name );
+  modal.find('#contenu').text('Est-tu sûr de vouloir supprimer la rubrique '+name+' ?');
+  modal.find('.confirm').attr('data-id',button.data('id'));
+})
+
+$('.confirm').on('click', function (event){
+  console.log('confirm');
+  var button= $(this);
+  var id = button.data('id');
+  $.ajax({
+    headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')},
+    method: 'DELETE',
+    url: 'categorie/'+id,
+    data: "",
+    dataType:"json", 
+  })
+    .done(function(data) {
+      location.reload();
+    })
+    .fail(function(data){
+      //console.log(data);
+    })
+})
+
+$('.deleteActu').on('click', function (event){
+  console.log('confirm');
+  var button= $(this);
+  var id = button.data('id');
+  $.ajax({
+    headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')},
+    method: 'DELETE',
+    url: '/',
+    data: "",
+    dataType:"json", 
+  })
+    .done(function(data) {
+      location.reload();
+    })
+    .fail(function(data){
+      //console.log(data);
+    })
+})
+
+$('.valider').on('click', function (event){
+  alert('validé');
+  var button= $(this);
+  var id = button.data('id');
+  $.ajax({
+    headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')},
+    method: 'POST',
+    url: id+'/valider',
+    data: "",
+    dataType:"json", 
+  })
+    .done(function(data) {
+      window.location='';
     })
     .fail(function(data){
       //console.log(data);

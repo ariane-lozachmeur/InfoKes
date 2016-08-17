@@ -5,13 +5,20 @@
 @section('content')
 
 	<div class="row white bloc-padding">
+	@unless($cat==null)
 		<div class="article-bandeau" style="background-color:{{$cat->couleur}}">
 			<h5 class="article-cat" style="color:{{$cat->couleur_police}}">{{$cat->name}}</h5>
 		</div>
+	@endunless
 		<div class="col s12 l12 article-header">
-			<h2 class="titre" style="color:{{$cat->couleur}}">{{$article->titre}}</h2>
+			<h2 class="titre" style="color:{{$cat!=null ? $cat->couleur : ''}}">{{$article->titre}}</h2>
 			<h5 class="auteur">par {{$article->auteur}}</h5>
-			<a class="btn blue darken-2 centrer" href="{{url('article')}}/{{$article->id}}/edit">Editer l'article</a>
+			<div class="center">
+				<a class="btn blue darken-2" href="{{url('article')}}/{{$article->id}}/edit">Editer l'article</a>
+				@unless($article->relu)
+				<a class="btn green darken-2 valider" data-id="{{$article->id}}">Valider l'article</a>
+				@endunless
+			</div>
 		</div>
 
 		<div class="col s12">

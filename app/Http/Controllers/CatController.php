@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Khote;
 use Illuminate\Http\Request;
-use App\Model\Categorie;
-use App\Http\Requests;
 
-class KhoteController extends Controller
+use App\Http\Requests;
+use App\Model\Categorie;
+use Session;
+
+
+class CatController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +18,11 @@ class KhoteController extends Controller
      */
     public function index()
     {
+        $data['page']='cat';
+        $data['categories']=Categorie::all();
+        $data['session']=Session::all();
         $data['side']=false;
-        $data['khotes']=Khote::all();
-        return view('khotes.index',$data);
+        return view('cat.index',$data);
     }
 
     /**
@@ -28,12 +32,12 @@ class KhoteController extends Controller
      */
     public function create()
     {
-        $data=[];
-        $data['page']='create';
+        $data['page']='cat';
         $data['categories']=Categorie::all();
-        $data['session']=\Session::all();
+        $data['session']=Session::all();
         $data['side']=false;
-        return view('khotes.create',$data);
+        return view('cat.create',$data);
+
     }
 
     /**
@@ -45,22 +49,24 @@ class KhoteController extends Controller
     public function store(Request $request)
     {
         $input=$request->all();
-        $khote = New Khote();
-        $khote->auteur=$input['auteur'];
-        $khote->contenu=$input['contenu'];
-        $khote->save();
-        return redirect('/')->with('message','Merci d\'avoir posté cette khote !');
+        $categorie = New Categorie;
+        $categorie->name=$input['name'];
+        $categorie->couleur=$input['couleur'];
+        $categorie->couleur_police=$input['couleur_police'];
+        $categorie->save();
+        return redirect('/categorie')->with('message','La catégorie a bien été crée');
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resou
+    {
+rce.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($id){
+          //
     }
 
     /**
@@ -71,7 +77,13 @@ class KhoteController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['side']=false;
+        $data['page']='cat';
+        $data['categories']=Categorie::all();
+        $data['session']=Session::all();
+        $data['categorie']=Categorie::find($id);
+        return view('cat.edit',$data);
+
     }
 
     /**
@@ -83,7 +95,13 @@ class KhoteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input=$request->all();
+        $categorie = Categorie::find($id);
+        $categorie->name=$input['name'];
+        $categorie->couleur=$input['couleur'];
+        $categorie->couleur_police=$input['couleur_police'];
+        $categorie->save();
+        return redirect('/categorie')->with('message','La catégorie a bien été modifiée');
     }
 
     /**
@@ -94,6 +112,7 @@ class KhoteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Categorie::find($id)->delete();
+        return '{"message" : "Success"}';
     }
 }

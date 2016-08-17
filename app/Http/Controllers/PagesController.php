@@ -19,6 +19,7 @@ class PagesController extends Controller
     	$data['categories']=Categorie::all();
     	$data['articles']=ArticleController::getArticles(5);
     	$data['actuskes']=ActusKesController::getActus();
+    	$data['side']=true;
     	return view('home',$data);
     }
 
