@@ -1,8 +1,9 @@
 <ul id="rubriques" class="dropdown-content transparent"><br>
 @foreach ($categories as $cat)
-  <li class="white "><a class="blue-text text-darken-2" href="{{url('categorie')}}/{{$cat->id}}">{{$cat->name}}</a></li>
+  <li class="white"><a class="blue-text text-darken-2" href="{{url('categorie')}}/{{$cat->id}}">{{$cat->name}}</a></li>
   <li class="divider"></li>
   @endforeach
+  <li class="white"><a class="blue-text text-darken-2" href="{{url('jeux')}}">Jeux</a></li>
 </ul>
 
 <ul id="admin" class="dropdown-content transparent"><br>
@@ -20,19 +21,24 @@
   <div class="nav-wrapper nav-perso">
   <a id="logo-container" href="{{url('/')}}" class="brand-logo">InfoKès</a>
       <ul class="left hide-on-med-and-down" style="margin-left:120px">
-        <li><a class="dropdown-button" href="#!" data-activates="rubriques">Rubriques</a></li>
+        <li><a class="dropdown-button" data-hover="true" data-constrainwidth="false" data-activates="rubriques">Rubriques</a></li>
         <li><a href="{{url('actuskes')}}">Actus Kès</a></li>
-        <li><a href="{{url('jeux')}}">Jeux</a></li>
+        <li><a href="{{url('ik')}}">Voir les IK</a></li>
         @if (isset($session['role']) && $session['role']==3)
-        <li><a class="dropdown-button" href="#!" data-activates="admin">Administration</a></li>
+        <li><a class="dropdown-button" data-hover="true" data-constrainwidth="false"   data-activates="admin">Administration</a></li>
         @endif
       </ul>
     <ul class="right hide-on-med-and-down"> 
-      <li><a href="{{$ik->pdf}}" download>Télécharger l'IK</a></li>
+    @if(isset($latestik))
+      <li><a href="{{$latestik->pdf}}" download>Télécharger l'IK</a></li>
+    @endif
       <li><a href="{{url('article/create')}}">Rédiger un article</a></li>
       <li><a href="{{url('khote/create')}}">Poster une khote</a></li>
-      <li><a href="#"><i class="large material-icons modal-trigger" href="#modalLogin">play_for_work</i></a></li>
-
+      @if(Session::get('user')==null)
+      <li><a href="#"><i class="large material-icons modal-trigger" href="#modalLogin">open_in_browser</i></a></li>
+      @else
+      <li><a href="{{url('/')}}/logout"><i class="large material-icons">power_settings_new</i></a></li>
+      @endif
     </ul>
 
 <!-- The nav bar for mobile devices -->
@@ -44,12 +50,13 @@
               @foreach ($categories as $cat)
                 <li><a href="#!">{{$cat->name}}</a></li>
               @endforeach
+                <li><a href="{{url('jeux')}}">Jeux</a></li>
               </ul>
             </div>
         </li>
       </ul>
       <li><a href="{{url('actuskes')}}">Actus Kès</a></li>
-      <li><a href="{{url('jeux')}}">Jeux</a></li>
+      <li><a href="{{url('ik')}}">Voir les IK</a></li>
       <ul class="collapsible" data-collapsibe="accordion">
        <li><a class="collapsible-header">Administration</a>
             <div class="collapsible-body">
@@ -62,11 +69,17 @@
             </div>
         </li>
       </ul>
-
       <li><a href="{{url('actuskes')}}">Actus Kès</a></li>
-      <li><a href="{{$ik->pdf}}" download>Télécharger l'IK</a></li>
+      @if(isset($latestik))
+      <li><a href="{{$latestik->pdf}}" download>Télécharger l'IK</a></li>
+      @endif
       <li><a href="{{url('article/create')}}">Rédiger un article</a></li>
       <li><a href="{{url('khote/create')}}">Poster une khote</a></li>
+      @if(Session::get('user')==null)
+      <li><a href="#"><i class="large material-icons modal-trigger" href="#modalLogin">open_in_browser</i></a></li>
+      @else
+      <li><a href="{{url('/')}}/logout"><i class="large material-icons">power_settings_new</i></a></li>
+      @endif
     </ul>
     <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
   </div>

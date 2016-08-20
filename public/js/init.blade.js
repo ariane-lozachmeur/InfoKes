@@ -34,30 +34,29 @@ $(document).ready(function(){
 
   $('.modal-trigger').leanModal();
 
+
   $('#like').on('click', function(){
     var id = article.id;
+    //console.log(id);
       $.ajax({
         headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')},
         method: 'POST',
         url: id+"/like",
-        data: "",
-        dataType:"json", 
+        data: '',
+        dataType:'json', 
       })
         .done(function(data) {
           $('#badge-perso').text(data);
+          $('#like').addClass('disabled');
+          $('#badge-perso').addClass('grey-text'); 
           //console.log(data);
         })
         .fail(function(data){
           //console.log(data);
+          //alert(data.responseText);
         })
 
   })
-
-   /* $('.savoir-plus').on('click', function(){
-    var id = $(this).data('id');
-    window.location('actuskes#'+id);
-    $("#"+id).addClass('active'); 
-  }) */
 
   $("#textarea").cleditor();
 
@@ -71,7 +70,7 @@ $(document).ready(function(){
             color: value.couleur_police,
           };
           bandeau.css( styles );
-          bandeau.text(value.name);
+          bandeau.html(value.name);
       }
     })
   })
@@ -273,3 +272,4 @@ $.ajax({
       //console.log(data);
     })
 })
+

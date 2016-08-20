@@ -58,7 +58,7 @@ class ActusKesController extends Controller
         $actuskes->published_until=$input['published_until'];
         $actuskes->relu=false;
         $actuskes->save();
-        return redirect('/')->with('message','Ta news Kès a bien été postée ');
+        return redirect('/actuskes')->with('message','Ta news Kès a bien été postée ');
     }
 
     /**

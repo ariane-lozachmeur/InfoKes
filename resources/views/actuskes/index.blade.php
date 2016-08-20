@@ -13,11 +13,11 @@
 <div class="row white bloc-padding">
 <div class="ik-header">
 	<h2 class=""> Des nouvelles de la Kès</h2>
-	@unless($session['role']==1)
+	@if(isset($session['role']) && $session['role']>1)
     <a class="btn-floating btn-large btn-flat" href="{{url('actuskes')}}/create">
       <i class="material-icons black-text huge">add</i>
     </a>
- 	@endunless
+ 	@endif
  </div>
 	<br>
 	<ul class="collapsible" data-collapsible="accordion">
@@ -25,9 +25,9 @@
 	    <li>
 		  	<div class="collapsible-header {{$actu_id==$actu->id ? 'active' : ''}}">
 		  		{{$actu->poste}} - {{$actu->titre}}
-		  		@unless($session['role']==1)
+		  		@if(isset($session['role']) && $session['role']>1)
 		  		<a class="btn-floating btn-flat" href="{{url('actuskes')}}/{{$actu->id}}/edit"><i class="material-icons black-text" style="margin-left:4px;margin-top:-3px">mode_edit</i></a>
-		  		@endunless
+		  		@endif
 		  	</div>
 		    <div class="collapsible-body justify bloc-padding white">
 		      	<div>

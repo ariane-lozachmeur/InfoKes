@@ -21,11 +21,13 @@ Route::post('/connect','ConnectController@connect');
 
 Route::post('/login','ConnectController@login');
 
+Route::get('/logout','ConnectController@logout');
+
 Route::post('/article/{id}', 'ArticleController@update');
 
 Route::post('article/{id}/like','ArticleController@like');
 
-Route::post('/article/{id}/commentaire','ArticleController@ajouterCommentaire');
+Route::post('/article/{id}/commentaire','ArticleController@comment');
 
 Route::post('/article/{id}/valider','ArticleController@valider');
 

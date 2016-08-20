@@ -59,7 +59,7 @@
 						{!! $errors->first('image', '<small class="error-message">:message</small>') !!}
 					</div>
 					<div class="input-field col s12">
-						<input id="date" name="published_at" type="date" class="datepicker {!!$errors->has('date') ? 'invalid' : '' !!}" value="{{Carbon\Carbon::today()}}">
+						<input id="date" name="published_at" type="date" class="datepicker {!!$errors->has('date') ? 'invalid' : '' !!}" value="{{Carbon\Carbon::today()->toDateString()}}">
 						<label for="published_at">Date de publication</label>
 						{!! $errors->first('date', '<small class="error-message">:message</small>') !!}
 					</div>

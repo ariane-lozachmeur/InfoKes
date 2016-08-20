@@ -5,7 +5,7 @@
 @section('content')
 
 {{Form::open(array('class'=>'col s12','files'=>true, 'action' => array('ArticleController@update',$article->id)))}}
-	<div class="row white article-container">
+	<div class="row white article-container bloc-padding">
 		<div class="col s12 l12 article-header">
 			<div class="input-field col s12">
 				<input name="titre" type="text" class="validate {!! $errors->has('titre') ? 'invalid' : '' !!}" value="{{$article->titre}}">

@@ -15,7 +15,7 @@ use Session;
 class ArticleController extends Controller
 {
     public function __construct(){
-        $this->middleware('notik',['except'=>['show']]);
+        $this->middleware('notik',['except'=>['show','create','like','comment']]);
     }
     /**
      * Display a listing of the resource.
@@ -122,7 +122,9 @@ class ArticleController extends Controller
         $article->presentation=$input['presentation'];
         $article->cat_id=$input['cat_id'];
         $article->relu=false;
-        $article->image = Article::saveFile($request,'image',str_random(10));
+        if(isset($input['image'])){
+            $article->image = Article::saveFile($request,'image',"Image_$id");
+        }
         $article->save();
         return redirect("/article/$id")->with('message','Merci d\'avoir édité cet article ! Il sera remis en ligne une fois relu');
     }
@@ -150,6 +152,7 @@ class ArticleController extends Controller
     public function like($id){
         $article = Article::find($id);
         $article->like++;
+        Session::put("$id",'liked');
         $article->save();
         return '{"like":' +"$article->like"+'}';
     }
@@ -170,7 +173,7 @@ class ArticleController extends Controller
         return Article::where('relu',true)->get();
     }
 
-    public static function ajouterCommentaire(Request $request, $id){
+    public static function comment(Request $request, $id){
         $input=Request::all();
         $commentaire = New Commentaire;
         $commentaire->auteur=$input['auteur'];

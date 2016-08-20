@@ -5,8 +5,10 @@
 
 <div class="row white bloc-padding">
 <div class="ik-header">
-<h3>Les IKs récents</h3>
- <a class="btn-floating btn-flat waves-effect waves-light" href="ik/create"><i class="large material-icons black-text">add</i></a>
+<h3>Sommaire des IKs</h3>
+@if( isset($session['role']) && $session['role']==3)
+ <a class="btn-floating btn-flat btn-large waves-effect waves-light" href="ik/create"><i class="large material-icons black-text">add</i></a>
+@endif
  </div>
 
 	<?php $i =0; ?>
@@ -20,7 +22,9 @@
 		</a>
 		<div class="ik-titre">
 			<p class="dotdotdot">{{$ik->titre}}</p>
+			@if (isset($session['role']) && $session['role']==3)
 			<a class="btn-floating btn-flat waves-effect waves-light" href="ik/{{$ik->numero}}/edit"><i class="large material-icons black-text">mode_edit</i></a>
+			@endif
 		</div>
 	</div>
 	@if ($i%3==2)

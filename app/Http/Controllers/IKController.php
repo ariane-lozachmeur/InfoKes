@@ -21,7 +21,7 @@ class IKController extends Controller
     public function index()
     {
         $data=PagesController::dataCommune('ik.create',false);
-        $data['iks'] = IKController::getIKs(9); 
+        $data['iks'] = IKController::getIKs(6); 
         return view('ik.index',$data);
     }
 
@@ -60,9 +60,12 @@ class IKController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($numero)
     {
-        //
+        $ik = IK::findOrFail($numero);
+        $data=PagesController::dataCommune('ik.show',false);
+        $data['thisik']=$ik;
+        return view('ik.show',$data);
     }
 
     /**

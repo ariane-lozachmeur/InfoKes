@@ -18,7 +18,7 @@ class PagesController extends Controller
         $data['page']=$page;
         $data['session']=\Session::all();
         $data['categories']=Categorie::all();
-        $data['ik']=IKController::getLatest();
+        $data['latestik']=IKController::getLatest();
         $data['side']=$side;
         return $data;
     }
