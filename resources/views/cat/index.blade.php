@@ -10,11 +10,9 @@
 	@foreach($categories as $cat)
 	<div class="col s6 m3">
 		<div class="card">
-			<div class="card-header" style="background-color:{{$cat->couleur}}">
-    			<div class="right"><a class="btn-flat btn-floating delete" data-name="{{$cat->name}}" data-id="{{$cat->id}}"><i class="close material-icons">close</i></a></div>
-			</div>
-			<div class="card-content">
-				<h5 class="ellipse">{{$cat->name}}</h5>
+			<div class="card-content" style="background-color:{{$cat->couleur}};color:{{$cat->couleur_police}}">
+			<a class="btn-flat btn-floating delete right" data-name="{{$cat->name}}" data-id="{{$cat->id}}"><i class="close material-icons">close</i></a>
+				<p class="dotdotdot rubrique-index">{{$cat->name}}</p>
 			</div>
 			<div class="card-action">
 				<a class="blue-text" href="{{url('categorie')}}/{{$cat->id}}/edit">Modifier</a>

@@ -10,16 +10,18 @@
 		{{Form::open(array('class'=>'col s12','url'=>'categorie'))}}
 				<div class="row">
 					<div class="input-field col s12">
-						<input name="name" type="text" class="validate">
+						<input name="name" type="text" class="validate" required>
 						<label for="name">Nom de la rubrique</label>
 					</div>
-					<div class="input-field col s12">
-						<input name="couleur" type="color" class="validate">
-						<label for="couleur">Couleur de la rubrique</label>
-					</div>
-					<div class="input-field col s12">
-						<input name="couleur_police" type="color" class="validate">
-						<label for="couleur_police">Couleur de la police (pour être visible sur le fond)</label>
+					<div class="row">
+						<div class="input-field col s6">
+							<input name="couleur" type="color" class="validate color-input btn-flat">
+							<label for="couleur" class="active">Couleur de la rubrique</label>
+						</div>
+						<div class="input-field col s6">
+							<input name="couleur_police" type="color" class="validate color-input btn-flat" value="#ffffff">
+							<label for="couleur_police" class="active">Couleur de la police</label>
+						</div>
 					</div>
 					<div class="input-field col s12 center-align">
 						<input type="submit" class="btn blue darken-3" value="Créer">

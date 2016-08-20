@@ -15,15 +15,26 @@ Route::get('/', 'PagesController@home');
 
 Route::get('/jeux','PagesController@jeux');
 
+Route::get('/getIK','PagesController@ik');
+
+Route::post('/connect','ConnectController@connect');
+
+Route::post('/login','ConnectController@login');
+
 Route::post('/article/{id}', 'ArticleController@update');
+
+Route::post('article/{id}/like','ArticleController@like');
+
+Route::post('/article/{id}/commentaire','ArticleController@ajouterCommentaire');
+
+Route::post('/article/{id}/valider','ArticleController@valider');
 
 Route::post('/categorie/{id}', 'CatController@update');
 
 Route::post('/actuskes/{id}', 'ActusKesController@update');
 
-Route::post('/article/{id}/commentaire','ArticleController@ajouterCommentaire');
+Route::post('/ik/{numero}', 'IKController@update');
 
-Route::post('/article/{id}/valider','ArticleController@valider');
 
 Route::resource('article', 'ArticleController');
 
@@ -32,6 +43,9 @@ Route::resource('khote', 'KhoteController');
 Route::resource('actuskes','actusKesController');
 
 Route::resource('categorie','CatController');
+
+Route::resource('ik','IKController');
+
 
 
 

@@ -12,15 +12,24 @@ use Carbon\Carbon ;
 
 class PagesController extends Controller
 {
+
+    public static function dataCommune($page,$side){
+        $data=[];
+        $data['page']=$page;
+        $data['session']=\Session::all();
+        $data['categories']=Categorie::all();
+        $data['ik']=IKController::getLatest();
+        $data['side']=$side;
+        return $data;
+    }
     public function home(){
-    	$data=[];
-    	$data['page']='home';
-    	$data['session']=\Session::all();
-    	$data['categories']=Categorie::all();
-    	$data['articles']=ArticleController::getArticles(5);
+    	$data=PagesController::dataCommune('home',true);
+    	$data['articles']=ArticleController::getArticlesOfWeek();
     	$data['actuskes']=ActusKesController::getActus();
-    	$data['side']=true;
     	return view('home',$data);
     }
 
+    public function jeux(){
+        return '';
+    }
 }

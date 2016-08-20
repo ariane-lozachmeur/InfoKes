@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ActusKesRequest;
 use App\Model\ActusKes;
 use App\Model\Categorie;
 use App\Http\Requests;
@@ -11,21 +12,20 @@ use Carbon\Carbon ;
 
 class ActusKesController extends Controller
 {
+    public function __construct(){
+        $this->middleware('notkessier',['except'=>'index']);
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $data=[];
-        $data['page']='actuskes';
-        $data['categories']=Categorie::all();
-        $data['session']=\Session::all();
+        $data=PagesController::dataCommune('actuskes',false);
         $data['actuskes']=ActusKesController::getActus();
-        $data['side']=false;
         return view('actuskes.index',$data);
-
     }
 
     /**
@@ -35,12 +35,8 @@ class ActusKesController extends Controller
      */
     public function create()
     {
-        $data=[];
-        $data['page']='create';
-        $data['categories']=Categorie::all();
-        $data['session']=\Session::all();
+        $data=PagesController::dataCommune('actuskes.create',false);
         $data['postes']=['IK','Relex','Specto','Trézo','SecGen','Archi','Inter','Binet','Mili','Sport','Com','Ens'];
-        $data['side']=false;
         return view('actuskes.create',$data);
     }
 
@@ -50,7 +46,7 @@ class ActusKesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ActusKesRequest $request)
     {
         $input=$request->all();
         $actuskes = New Actuskes;
@@ -84,12 +80,8 @@ class ActusKesController extends Controller
      */
     public function edit($id)
     {
-        $data=[];
-        $data['page']='actuskes';
-        $data['categories']=Categorie::all();
-        $data['session']=\Session::all();
+        $data=PagesController::dataCommune('actuskes.edit',false);
         $data['actuskes']=ActusKesController::getActus();
-        $data['side']=false;
         $data['actu']=ActusKes::find($id);
         return view('actuskes.edit',$data);
     }
@@ -101,7 +93,7 @@ class ActusKesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ActusKesRequest $request, $id)
     {
         $input=$request->all();
         $actuskes = Actuskes::find($id);
@@ -123,9 +115,8 @@ class ActusKesController extends Controller
      */
     public function destroy($id)
     {
-        $actu = Actuskes::find($id);
-        $actu->destory();
-        return '{"message":"success"}';
+        ActusKes::find($id)->delete();
+        return '{"message" : "Success"}';
     }
 
     public static function getActus(){

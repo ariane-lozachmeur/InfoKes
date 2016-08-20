@@ -4,23 +4,83 @@
   }); // end of document ready
 })(jQuery); // end of jQuery name space
 
+var page = 1;
 function loadMoreCommentaires(){
+  page++;
    $.ajax({
     method: 'GET',
-    url: article.id+'?page=2',
+    url: article.id+'?page='+page,
     data: "",
-    dataType:"html", 
+    dataType:"json", 
   })
     .done(function(data) {
-      console.log(data);
+      $.each(data.data, function(){
+        var html = "<div class='divider'></div><div class='section'><h5 class='small'>"+this.auteur+"</h5><p class='justify dotdotdot commentaire'>"+this.contenu+"</p></div>";
+        $('.commentaire-container').append(html);
+        $('.commentaire').readmore({
+          speed: 75,
+          moreLink: '<a href="#">Plus</a>',
+          lessLink: '<a href="#">Moins</a>',
+        });
+      });
     })
     .fail(function(data){
-      alert('fail');
+      //alert('fail');
       console.log(data);
     })
 }
 
 $(document).ready(function(){
+
+  $('.modal-trigger').leanModal();
+
+  $('#like').on('click', function(){
+    var id = article.id;
+      $.ajax({
+        headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')},
+        method: 'POST',
+        url: id+"/like",
+        data: "",
+        dataType:"json", 
+      })
+        .done(function(data) {
+          $('#badge-perso').text(data);
+          //console.log(data);
+        })
+        .fail(function(data){
+          //console.log(data);
+        })
+
+  })
+
+   /* $('.savoir-plus').on('click', function(){
+    var id = $(this).data('id');
+    window.location('actuskes#'+id);
+    $("#"+id).addClass('active'); 
+  }) */
+
+  $("#textarea").cleditor();
+
+    $(".bandeau-rubrique").each(function(){
+    var bandeau = $(this);
+    var categorie_id = $(this).data('cat');
+    $.each(categories, function(index,value){
+      if(value.id == categorie_id){
+        var styles = {
+            backgroundColor : value.couleur,
+            color: value.couleur_police,
+          };
+          bandeau.css( styles );
+          bandeau.text(value.name);
+      }
+    })
+  })
+
+  $('.commentaire').readmore({
+  speed: 75,
+  moreLink: '<a href="#">Plus</a>',
+  lessLink: '<a href="#">Moins</a>',
+});
 
   $(".dotdotdot").dotdotdot({
     ellipsis  : '... ',
@@ -66,12 +126,12 @@ $(window).scroll(function() {
     var height = $(window).scrollTop();
     var background = $('.slider')
 
-    if( height < background.outerHeight()-20) {
+    if( height < background.outerHeight()-40) {
     	$("#navbar").addClass("transparent");
         $("#navbar").removeClass("blue darken-3");
     }
     
-    if( height  > background.outerHeight()-20 ) {
+    if( height  > background.outerHeight()-40 ) {
         $("#navbar").addClass("blue darken-3");
         $("#navbar").removeClass("transparent");
     }
@@ -82,29 +142,6 @@ $(window).scroll(function() {
 
 var h = $('.card-image').outerWidth();
 $('.card-image').css({height: h + 'px'});
-
-$('.savoir-plus').on('click', function (event) {
-  var button = $(this) // Button that triggered the modal
-  var id = button.data('id') // Extract info from data-* attributes
-  $('#modalActus').openModal(); 
-  // AJAX request here (and then do the updating in a callback).
-  $.ajax({
-    method: 'GET',
-    url: 'actuskes/'+id,
-    data: "",
-    dataType:"json", 
-  })
-    .done(function(data) {
-      //console.log(data);
-      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-      var modal = $("#modalActus");
-      modal.find('.titre').text(data.titre);
-      modal.find('.contenu').text(data.contenu);
-    })
-    .fail(function(data){
-      //console.log(data);
-    })
-})
 
 $('.delete').on('click', function (event) {
   console.log('delete')
@@ -144,12 +181,12 @@ $('.deleteActu').on('click', function (event){
   $.ajax({
     headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')},
     method: 'DELETE',
-    url: '/',
+    url: '../../actuskes/'+id,
     data: "",
     dataType:"json", 
   })
     .done(function(data) {
-      location.reload();
+      window.location='../../';
     })
     .fail(function(data){
       //console.log(data);
@@ -157,7 +194,7 @@ $('.deleteActu').on('click', function (event){
 })
 
 $('.valider').on('click', function (event){
-  alert('validé');
+  //alert('validé');
   var button= $(this);
   var id = button.data('id');
   $.ajax({
@@ -168,7 +205,69 @@ $('.valider').on('click', function (event){
     dataType:"json", 
   })
     .done(function(data) {
-      window.location='';
+      window.location='../article';
+    })
+    .fail(function(data){
+      //console.log(data);
+    })
+})
+
+$('.supprimer').on('click', function (event) {
+  var modal = $("#modalSupprimer")
+  modal.openModal();
+  modal.find('#titre').text('Supprimer l\'article' );
+  modal.find('#contenu').text('Est-tu sûr de vouloir supprimer cet article ? Cette opération est irréversible.');
+})
+
+$('#confirm-supprimer').on('click', function (event){
+  var id = $(this).data('id');
+  $.ajax({
+    headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')},
+    method: 'DELETE',
+    url: '',
+    data: "",
+    dataType:"json", 
+  })
+    .done(function(data) {
+      window.location='../';
+    })
+    .fail(function(data){
+      //console.log(data);
+    })
+})
+
+$('#delete-ik').on('click', function (event) {
+  var button = $(this)
+  var id = button.data('id')
+  console.log(id);
+$.ajax({
+    headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')},
+    method: 'DELETE',
+    url: '../'+id,
+    data: "",
+    dataType:"json", 
+  })
+    .done(function(data) {
+      //console.log(data);
+      window.location='/infokes-dev/public/ik';
+    })
+    .fail(function(data){
+      //console.log(data);
+    })
+})
+
+$('.connect').on('click', function (event) {
+  var button = $(this)
+  var role = button.data('role')
+$.ajax({
+    headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')},
+    method: 'POST',
+    url: 'connect',
+    data: { role : role },
+    dataType:"json", 
+  })
+    .done(function(data) {
+      //console.log(data);
     })
     .fail(function(data){
       //console.log(data);

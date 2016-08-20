@@ -1,6 +1,6 @@
 <ul id="rubriques" class="dropdown-content transparent"><br>
 @foreach ($categories as $cat)
-  <li class="white "><a class="blue-text text-darken-2" href="#!">{{$cat->name}}</a></li>
+  <li class="white "><a class="blue-text text-darken-2" href="{{url('categorie')}}/{{$cat->id}}">{{$cat->name}}</a></li>
   <li class="divider"></li>
   @endforeach
 </ul>
@@ -12,6 +12,7 @@
   <li class="divider"></li>
     <li class="white "><a class="blue-text text-darken-2" href="{{url('categorie')}}">Gérer les rubriques</a></li>
   <li class="divider"></li>
+  <li class="white"><a class="blue-text text-darken-2" href="{{url('ik')}}">Poster l'IK</a></li>
 </ul>
 
 <div class="navbar-fixed">  
@@ -22,13 +23,16 @@
         <li><a class="dropdown-button" href="#!" data-activates="rubriques">Rubriques</a></li>
         <li><a href="{{url('actuskes')}}">Actus Kès</a></li>
         <li><a href="{{url('jeux')}}">Jeux</a></li>
+        @if (isset($session['role']) && $session['role']==3)
         <li><a class="dropdown-button" href="#!" data-activates="admin">Administration</a></li>
-
+        @endif
       </ul>
     <ul class="right hide-on-med-and-down"> 
-      <li><a href="{{url('article/create')}}">Télécharger l'IK</a></li>
+      <li><a href="{{$ik->pdf}}" download>Télécharger l'IK</a></li>
       <li><a href="{{url('article/create')}}">Rédiger un article</a></li>
       <li><a href="{{url('khote/create')}}">Poster une khote</a></li>
+      <li><a href="#"><i class="large material-icons modal-trigger" href="#modalLogin">play_for_work</i></a></li>
+
     </ul>
 
 <!-- The nav bar for mobile devices -->
@@ -43,10 +47,24 @@
               </ul>
             </div>
         </li>
-        </ul>
-        <li><a href="{{url('actuskes')}}">Actus Kès</a></li>
-        <li><a href="{{url('jeux')}}">Jeux</a></li>
-      <li><a href="{{url('article/create')}}">Télécharger l'IK</a></li>
+      </ul>
+      <li><a href="{{url('actuskes')}}">Actus Kès</a></li>
+      <li><a href="{{url('jeux')}}">Jeux</a></li>
+      <ul class="collapsible" data-collapsibe="accordion">
+       <li><a class="collapsible-header">Administration</a>
+            <div class="collapsible-body">
+              <ul>
+                <li class="white"><a href="{{url('article')}}">Valider les articles</a></li>
+                <li class="white"><a href="{{url('khote')}}">Voir les khotes</a></li>
+                <li class="white"><a href="{{url('categorie')}}">Gérer les rubriques</a></li>
+                <li class="white"><a href="{{url('ik')}}">Poster l'IK</a></li>
+              </ul>
+            </div>
+        </li>
+      </ul>
+
+      <li><a href="{{url('actuskes')}}">Actus Kès</a></li>
+      <li><a href="{{$ik->pdf}}" download>Télécharger l'IK</a></li>
       <li><a href="{{url('article/create')}}">Rédiger un article</a></li>
       <li><a href="{{url('khote/create')}}">Poster une khote</a></li>
     </ul>

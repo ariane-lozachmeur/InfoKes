@@ -9,6 +9,9 @@ use App\Http\Requests;
 
 class KhoteController extends Controller
 {
+    public function __construct(){
+        $this->middleware('notkessier',['except'=>['create', 'store'] ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -28,11 +31,7 @@ class KhoteController extends Controller
      */
     public function create()
     {
-        $data=[];
-        $data['page']='create';
-        $data['categories']=Categorie::all();
-        $data['session']=\Session::all();
-        $data['side']=false;
+        $data=PagesController::dataCommune('khotes.create',false);
         return view('khotes.create',$data);
     }
 

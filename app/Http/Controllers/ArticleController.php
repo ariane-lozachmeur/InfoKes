@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Request;
+use App\Http\Requests\ArticleRequest;
 use App\Model\Article;
 use App\Model\Commentaire;
 use App\Model\Categorie;
@@ -13,6 +14,9 @@ use Session;
 
 class ArticleController extends Controller
 {
+    public function __construct(){
+        $this->middleware('notik',['except'=>['show']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,12 +24,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $data=[];
-        $data['page']='create';
-        $data['categories']=Categorie::all();
-        $data['session']=Session::all();
-        $data['side']=false;
-        $data['articles']=ArticleController::getArticlesRelire();
+        $data=PagesController::dataCommune('articles',false);
+        $data['articles']=ArticleController::nonRelu();
         $data['actuskes']=ActusKesController::getActus();
         return view('articles.index',$data);
     }
@@ -37,11 +37,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        $data=[];
-        $data['page']='create';
-        $data['categories']=Categorie::all();
-        $data['session']=Session::all();
-        $data['side']=false;
+        $data=PagesController::dataCommune('article.create',false);
         return view('articles.create',$data);
     }
 
@@ -51,20 +47,23 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public static function store(Request $request)
+    public static function store(ArticleRequest $request)
     {
-        $input=$request->all();
         $article = New Article;
+        $input=$request->all();
         $article->titre=$input['titre'];
         $article->auteur=$input['auteur'];
         $article->contenu=$input['contenu'];
-        $article->image=$input['image'];
-        $article->fichier=$input['fichier'];
         $article->published_at=$input['published_at'];
         $article->presentation=$input['presentation'];
         $article->cat_id=$input['cat_id'];
         $article->relu=false;
         $article->save();
+
+        $article->image = Article::saveFile($request,'image',"Image_$article->id");
+        $article->fichier=Article::saveFile($request,'fichier',"Article_$article->id");
+        $article->save();
+
         return redirect('/')->with('message','Merci d\'avoir publié cet article ! Il sera mis en ligne au plus tôt.');
     }
 
@@ -76,17 +75,20 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        $data=[];
         $article = Article::findOrFail($id);
+
+        $data=PagesController::dataCommune('article.show',true);
         $data['article']=$article;
         $data['cat']=Categorie::find($data['article']->cat_id);
-        $data['page']='show';
-        $data['categories']=Categorie::all();
-        $data['session']=Session::all();
         $data['actuskes']=ActusKesController::getActus();
+        $data['linkedArticles']=ArticleController::getLinkedArticle($data['cat']->id,5,$article->id);
         $data['commentaires']=$article->commentaires()->paginate(4);
-        $data['side']=true;
-        return view('articles.show',$data);
+        if(Request::ajax()){
+            return $data['commentaires'];
+        }
+        else { 
+            return view('articles.show',$data); 
+        }
     }
 
     /**
@@ -97,13 +99,9 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        $data=[];
+        $data=PagesController::dataCommune('article.edit',false);
         $data['article']=Article::findOrFail($id);
         $data['cat']=Categorie::find($data['article']->cat_id);
-        $data['page']='show';
-        $data['categories']=Categorie::all();
-        $data['session']=Session::all();
-        $data['side']=false;
         return view('articles.edit',$data);
     }
 
@@ -114,17 +112,17 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ArticleRequest $request, $id)
     {
         $input=$request->all();
         $article=Article::find($id);
         $article->titre=$input['titre'];
         $article->auteur=$input['auteur'];
         $article->contenu=$input['contenu'];
-        $article->image=$input['image'];
         $article->presentation=$input['presentation'];
         $article->cat_id=$input['cat_id'];
         $article->relu=false;
+        $article->image = Article::saveFile($request,'image',str_random(10));
         $article->save();
         return redirect("/article/$id")->with('message','Merci d\'avoir édité cet article ! Il sera remis en ligne une fois relu');
     }
@@ -137,7 +135,8 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Article::find($id)->delete();
+        return '{"message" : "Success"}';
     }
 
     public function valider($id)
@@ -148,22 +147,31 @@ class ArticleController extends Controller
         return '{"message" : "success"}';
     }
 
-    public static function getArticles($nombre){
-        $articles = Article::where('published_at','>','Carbon::now()')
-                            ->where('relu',true)
-                            ->latest('published_at')
-                            ->paginate($nombre);
-        return $articles;
+    public function like($id){
+        $article = Article::find($id);
+        $article->like++;
+        $article->save();
+        return '{"like":' +"$article->like"+'}';
     }
 
-    public static function getArticlesRelire(){
-        $articles = Article::where('relu',false)
+    public static function getArticlesOfWeek(){
+        $articles = Article::whereBetween('published_at', array(Carbon::now()->subWeek(), Carbon::now()))
+                            ->where('relu',true)
+                            ->latest('published_at')
                             ->get();
         return $articles;
     }
 
+    public static function nonRelu(){
+        return Article::where('relu',false)->get();
+    }
+
+    public static function relu(){
+        return Article::where('relu',true)->get();
+    }
+
     public static function ajouterCommentaire(Request $request, $id){
-        $input=$request->all();
+        $input=Request::all();
         $commentaire = New Commentaire;
         $commentaire->auteur=$input['auteur'];
         $commentaire->contenu=$input['contenu'];
@@ -171,5 +179,20 @@ class ArticleController extends Controller
         $article = Article::find($id);
         $article->commentaires()->attach($commentaire);
         return redirect("article/$id");
+    }
+
+    public static function getLinkedArticle($cat_id, $number,$article_id){
+        return Article::where('id','!=',$article_id)
+                        ->whereBetween('published_at', array(Carbon::now()->subWeeks(1), Carbon::now()))
+                        ->where('relu',true)
+                        ->latest('published_at')
+                        ->get();
+    }   
+
+    public static function getArticleByCat($id,$nombre){
+        return Article::where('cat_id',$id)
+                        ->where('relu',true)
+                        ->latest('published_at')
+                        ->paginate($nombre);
     }
 }

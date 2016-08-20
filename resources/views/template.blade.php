@@ -11,6 +11,8 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="{{url('css/materialize.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="{{url('css/style.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
+   <link href="{{url('css/jquery.cleditor.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  
   @yield('header')
 </head>
 <body>
@@ -21,10 +23,10 @@
   <div class="container margin-top">
     <div class="row">
       @if($side==true)
-      <div class="col s12 m9">
+      <div class="col s12 m9 l9">
         @yield('content')
       </div>
-      <div class="row col s12 m3" id="aside">
+      <div class="col s12 m3 l3" id="aside">
         @yield('side')
       </div>
       @else
@@ -35,31 +37,44 @@
     </div>
   </div>
 
+  <!-- Modal for Login -->
+<div id="modalLogin" class="modal">
+  <div class="modal-content">
+    <h4>Connection</h4>
+    {{Form::open(array('class'=>'col s12','url'=>'login'))}}
+    <div class="row">
+      <div class="input-field col s12">
+        <input name="login" type="text" class="{!! $errors->has('login') ? 'invalid' : '' !!}" value="{{old('login')}}">
+        <label for="titre">Login</label>
+        {!! $errors->first('login', '<small class="error-message">:message</small>') !!}
+      </div>
+      <div class="input-field col s12">
+        <input id="password" name="password" type="password" class="{!! $errors->has('published_at') ? 'invalid' : '' !!}">
+        <label for="published_at">Password</label>
+        {!! $errors->first('password', '<small class="error-message">:message</small>') !!}
+      </div>
+      <div class="input-field col s12 center-align">
+        <input type="submit" class="btn blue darken-3" value="Se connecter">
+      </div>
+    </div>
+      {{Form::close()}}
+  </div>
+</div>
+
   <footer class="page-footer blue lighten-2">
     <div class="container">
       <div class="row">
-        <div class="col l6 s12">
+        <div class="col m6 s12">
           <h5 class="white-text">Rejoint l'équipe de l'IK !</h5>
           <p class="grey-text text-lighten-4">Si tu es un grand fan de ce journal ou que tu désire simplement montrer tes talents de journaliste, d'écrivan ou d'inforgraphiste à la promotion, rejoint l'équipe de l'IK ! Pour cela, rien de plus simple : envoie un mail à ik@eleves.polytechnique.edu et on se fera une joie de t'accueillir dans notre équipe.</p>
-
-
         </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Settings</h5>
+
+        <div class="col m4 s12 offset-m1">
+          <h5 class="white-text">Contacts</h5>
           <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Connect</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
+            <li class="white-text nowrap">Kessière IK (Ariane) : ik@eleves.polytechnique.fr</li>
+            <li class="white-text nowrap">Vice éditeur en chef : john.doe@gmail.fr</li>
+            <li class="white-text nowrap">Graphiste : john.doe@gmail.fr</a></li>
           </ul>
         </div>
       </div>
@@ -77,7 +92,8 @@
   <script src="{{url('js/jquery.dotdotdot.min.js')}}"></script>
   <script src="{{url('js/init.blade.js')}}"></script>
   <script src="{{url('js/moment-with-locales.min.js')}}"></script>
-
+  <script src="{{url('js/readmore.min.js')}}"></script>
+  <script src="{{url('js/jquery.cleditor.min.js')}}"></script>
   
   <script type="text/javascript">
     var session = {!!json_encode($session)!!}

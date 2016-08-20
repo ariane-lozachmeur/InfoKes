@@ -11,6 +11,9 @@ use Session;
 
 class CatController extends Controller
 {
+    public function __construct(){
+        $this->middleware('notik',['except'=>'show']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,10 +21,7 @@ class CatController extends Controller
      */
     public function index()
     {
-        $data['page']='cat';
-        $data['categories']=Categorie::all();
-        $data['session']=Session::all();
-        $data['side']=false;
+        $data=PagesController::dataCommune('cat',false);
         return view('cat.index',$data);
     }
 
@@ -32,12 +32,8 @@ class CatController extends Controller
      */
     public function create()
     {
-        $data['page']='cat';
-        $data['categories']=Categorie::all();
-        $data['session']=Session::all();
-        $data['side']=false;
+        $data=PagesController::dataCommune('cat.create',false);;
         return view('cat.create',$data);
-
     }
 
     /**
@@ -66,7 +62,11 @@ rce.
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-          //
+        $data=PagesController::dataCommune('cat.show',true);
+        $data['cat']=Categorie::findOrFail($id);
+        $data['articles']=ArticleController::getArticleByCat($id,9);
+        $data['actuskes']=ActusKesController::getActus();
+        return view('cat.show',$data);
     }
 
     /**
@@ -77,10 +77,7 @@ rce.
      */
     public function edit($id)
     {
-        $data['side']=false;
-        $data['page']='cat';
-        $data['categories']=Categorie::all();
-        $data['session']=Session::all();
+        $data=PagesController::dataCommune('cat.edit',false);
         $data['categorie']=Categorie::find($id);
         return view('cat.edit',$data);
 
