@@ -100,6 +100,11 @@
   if (typeof(session.message) !== 'undefined') {
      Materialize.toast(session.message, 4000,'message_success');
   }
+
+  if (typeof(session.message_error) !== 'undefined') {
+     Materialize.toast(session.message_error, 4000,'message_error');
+  }
+
     </script>
   @yield('footer')
 </body>

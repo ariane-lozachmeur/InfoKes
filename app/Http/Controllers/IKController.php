@@ -68,6 +68,16 @@ class IKController extends Controller
         return view('ik.show',$data);
     }
 
+    public function getByDate(){
+        $date = $_POST['date'];
+        $ik = IK::where('published_at',"$date 00:00:00")->first();
+        if($ik==null){
+            return '{"message":"pas dIK"}';
+        } else {
+        return $ik;
+        }
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

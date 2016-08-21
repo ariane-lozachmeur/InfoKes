@@ -4,38 +4,42 @@
   }); // end of document ready
 })(jQuery); // end of jQuery name space
 
-var page = 1;
 function loadMoreCommentaires(){
-  page++;
+  for(i=2;i<(commentaires.last_page+2);i++){
    $.ajax({
     method: 'GET',
-    url: article.id+'?page='+page,
+    url: article.id+'?page='+i,
     data: "",
     dataType:"json", 
   })
     .done(function(data) {
       $.each(data.data, function(){
-        var html = "<div class='divider'></div><div class='section'><h5 class='small'>"+this.auteur+"</h5><p class='justify dotdotdot commentaire'>"+this.contenu+"</p></div>";
+        var html = "<div class='divider'></div><div class='section' style='display:none'><h5 class='small'>"+this.auteur+"</h5><p class='justify dotdotdot commentaire'>"+this.contenu+"</p><p class='date right-align'>"+moment(this.created_at).startOf('hour').fromNow()+"</p></div>";
         $('.commentaire-container').append(html);
+        $('.commentaire-container').find('.section').slideDown();
         $('.commentaire').readmore({
           speed: 75,
           moreLink: '<a href="#">Plus</a>',
           lessLink: '<a href="#">Moins</a>',
         });
       });
+      $('.load-more').hide();
     })
     .fail(function(data){
       //alert('fail');
       console.log(data);
     })
+  }
 }
 
 $(document).ready(function(){
 
   $('.modal-trigger').leanModal();
 
-
   $('#like').on('click', function(){
+    if($(this).hasClass('disabled')){
+
+    } else {
     var id = article.id;
     //console.log(id);
       $.ajax({
@@ -48,14 +52,15 @@ $(document).ready(function(){
         .done(function(data) {
           $('#badge-perso').text(data);
           $('#like').addClass('disabled');
-          $('#badge-perso').addClass('grey-text'); 
+          $('#badge-perso').addClass('grey-text');
+          console.log(session); 
           //console.log(data);
         })
         .fail(function(data){
           //console.log(data);
           //alert(data.responseText);
         })
-
+      }
   })
 
   $("#textarea").cleditor();
@@ -193,21 +198,25 @@ $('.deleteActu').on('click', function (event){
 })
 
 $('.valider').on('click', function (event){
-  //alert('validé');
+  $('#modalValider').openModal();
+   });
+
+$('.valider2').on('click', function(event){
   var button= $(this);
-  var id = button.data('id');
+  var id = article.id;
+  var numero = $('#numero').val();
   $.ajax({
     headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')},
     method: 'POST',
     url: id+'/valider',
-    data: "",
+    data: {numero : numero},
     dataType:"json", 
   })
     .done(function(data) {
       window.location='../article';
     })
     .fail(function(data){
-      //console.log(data);
+      console.log(data);
     })
 })
 

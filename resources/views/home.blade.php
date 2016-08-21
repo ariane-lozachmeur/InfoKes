@@ -14,6 +14,9 @@
 		</li>
 	</ul>
 </div>
+
+<h2 class="center-align home-titre"> Dans l'IK cette semaine </h2>
+
 @stop
 
 @section('content')
@@ -49,13 +52,17 @@
 		 </div>
 	</div>
 	@endforeach
+
+	<div class="center">
+		@include('partials.pagination', ['paginator' => $articles])
+	</div>
 </div>
 @stop
 
 @section('side')
 	<div class="actus">
       @foreach ($actuskes as $actu)
-          <div class="card blue darken-3">
+          <div class="card blue lighten-1">
             <div class="card-content dotdotdot actusKes white-text">
               <span class="card-title">Actus {{$actu->poste}}</span>
               <p>{!!$actu->contenu!!}</p>

@@ -2,8 +2,8 @@
 		$page=$data['page'];
 		$session =  $data['session'];
 		$categories = $data['categories'];
-        $ik = $data['ik'];
-        $side = $data['side']; 
+        $latestik = $data['latestik'];
+        $side = $data['side'];
 ?>
 
 @extends('template')

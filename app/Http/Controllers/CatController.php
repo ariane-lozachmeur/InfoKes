@@ -64,7 +64,7 @@ rce.
     public function show($id){
         $data=PagesController::dataCommune('cat.show',true);
         $data['cat']=Categorie::findOrFail($id);
-        $data['articles']=ArticleController::getArticleByCat($id,9);
+        $data['articles']=ArticleController::getArticleByCat($id,6);
         $data['actuskes']=ActusKesController::getActus();
         return view('cat.show',$data);
     }

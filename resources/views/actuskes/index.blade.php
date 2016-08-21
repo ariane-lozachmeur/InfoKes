@@ -10,7 +10,7 @@
 	$actu_id = -1;
 	} ?>
 
-<div class="row white bloc-padding">
+<div class="row bloc-padding actuskes-container">
 <div class="ik-header">
 	<h2 class=""> Des nouvelles de la Kès</h2>
 	@if(isset($session['role']) && $session['role']>1)
@@ -29,7 +29,7 @@
 		  		<a class="btn-floating btn-flat" href="{{url('actuskes')}}/{{$actu->id}}/edit"><i class="material-icons black-text" style="margin-left:4px;margin-top:-3px">mode_edit</i></a>
 		  		@endif
 		  	</div>
-		    <div class="collapsible-body justify bloc-padding white">
+		    <div class="collapsible-body justify big-padding white">
 		      	<div>
 			      	<h5>{{$actu->titre}}</h5>
 			      	{!!$actu->contenu!!}

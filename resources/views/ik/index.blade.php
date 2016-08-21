@@ -35,6 +35,14 @@
 	@unless ($i%3==0)
 	</div>
 	@endif
+
+<div class="row">
+ <div class="col m6 push-m3">
+ 	<p> Si tu recherche un IK en particulier, saisis sa date de publication (l'IK est publié le mercredi). </p>
+  	<input type="date" name="date" id="date" class="datepicker">
+ </div>
+ </div>
+
 	<div class="center">
 		@include('partials.pagination', ['paginator' => $iks])
 	</div>
@@ -44,5 +52,45 @@
 @stop
 
 @section('footer')
-
+<script type="text/javascript">
+$('#date').pickadate({
+  monthsFull: [ 'janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre' ],
+  monthsShort: [ 'jan', 'fév', 'mar', 'avr', 'mai', 'jun', 'jul', 'août', 'sep', 'oct', 'nov', 'dec' ],
+  weekdaysFull: [ 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche' ],
+  weekdaysShort: [ 'lu', 'ma', 'mer', 'jeu', 'ven', 'sa', 'di' ],
+  today: 'Aujourd\'hui',
+  clear: '',
+  close: 'Valider',
+  format: 'yyyy-mm-dd',
+  firstDay: 2,
+  closeOnSelect: true,
+  selectMonths: true, // Creates a dropdown to control month
+  selectYears: 10, // Creates a dropdown of 15 years to control year
+  max: new Date(),
+  onSet: function(context){
+  	var date=$('#date').val();
+  	if(typeof(context.select)!=='undefined'){ //si on a bien selectionné une date
+	  	$.ajax({
+	    headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')},
+	    method: 'POST',
+	    url: 'ik/date',
+	    data: {date:date},
+	    dataType:"json", 
+	  })
+	    .done(function(data) {
+	    	//console.log(data);
+	    	if (typeof(data.numero) !== 'undefined'){ //si la date correspond bien a un IK
+	    		window.location="ik/"+data.numero;
+	    	} else{
+	  			Materialize.toast('Pas d\'IK publié ce jour là', 2000,'message_error');
+	    	}
+	    })
+	    .fail(function(data){
+	      //alert('fail');
+	      console.log(data);
+	    })
+	}
+  },
+});
+</script>
 @stop

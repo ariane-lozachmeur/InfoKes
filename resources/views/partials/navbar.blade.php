@@ -13,7 +13,7 @@
   <li class="divider"></li>
     <li class="white "><a class="blue-text text-darken-2" href="{{url('categorie')}}">Gérer les rubriques</a></li>
   <li class="divider"></li>
-  <li class="white"><a class="blue-text text-darken-2" href="{{url('ik')}}">Poster l'IK</a></li>
+  <li class="white"><a class="blue-text text-darken-2" href="{{url('ik/create')}}">Poster l'IK</a></li>
 </ul>
 
 <div class="navbar-fixed">  
@@ -64,7 +64,7 @@
                 <li class="white"><a href="{{url('article')}}">Valider les articles</a></li>
                 <li class="white"><a href="{{url('khote')}}">Voir les khotes</a></li>
                 <li class="white"><a href="{{url('categorie')}}">Gérer les rubriques</a></li>
-                <li class="white"><a href="{{url('ik')}}">Poster l'IK</a></li>
+                <li class="white"><a href="{{url('ik/create')}}">Poster l'IK</a></li>
               </ul>
             </div>
         </li>

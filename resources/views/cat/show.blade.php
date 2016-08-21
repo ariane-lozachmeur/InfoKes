@@ -40,6 +40,9 @@
      </div>
 	</div>
 	@endforeach
+  <div class="center">
+    @include('partials.pagination', ['paginator' => $articles])
+  </div>
 </div>
 @stop
 
@@ -57,21 +60,8 @@
           </div>
     @endforeach
     </div>
-
-<!-- Modal for actuskes -->
-<div id="modalActus" class="modal modal-fixed-footer">
-    <div class="modal-content">
-      <h4 class="titre"></h4>
-      <p class="contenu"></p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Fermer</a>
-    </div>
-  </div>
-    <div class="center">
-    @include('partials.pagination', ['paginator' => $articles])
-  </div>
 @stop
+
 @section('footer')
 
 <script>

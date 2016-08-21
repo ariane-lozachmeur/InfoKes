@@ -47,6 +47,11 @@ i.huge{
 .home-photo{
     margin-top:-64px;
 }
+
+.home-titre{
+  margin-top:60px;
+  margin-bottom: -40px;
+}
 .nav-perso{
 	margin:0px 40px;
 }
@@ -61,7 +66,7 @@ i.huge{
     background: #000;
 }
   
- .card-image img {
+.card-image img {
     position: absolute;
     display: block;
     height: 100%; /* all images at least fill the height */
@@ -81,13 +86,22 @@ i.huge{
   padding-left:20px;
 }
 
-  .form-container{
-    padding:0px 30px 20px 30px;
+.big-padding{
+  padding:30px 10%;
+}
+
+.form-container{
+  padding:0px 30px 20px 30px;
+}
+
+.message_success{
+  background-color:#00c853; /* green accent-4 */
+ }
+
+.message_error{
+  background-color: #d50000;
   }
 
-  .message_success{
-    background-color:#00c853; /* green accent-4 */
-  }
   .bloc-padding{
     padding:20px 50px 35px 50px;
   }
@@ -95,10 +109,10 @@ i.huge{
   .article-img{
     padding:0px !important;
     margin-right:20px;
-    margin-bottom:10px;
+    margin-bottom:0px;
   }
   .contenu{
-    text-align:justify;
+    text-align:justify !important;
   }
   .article-bandeau{
     margin:-20px -50px 0px -50px;
@@ -133,6 +147,12 @@ i.huge{
     margin-top: 75px;
   }
 
+  .actuskes-container{
+    width: 80%;
+    margin:auto !important;
+    margin-top:-55px !important;
+  }
+
   h5.small{
     font-size: 20px !important;
     font-weight: 300;
@@ -153,17 +173,10 @@ i.huge{
     max-height: 9em;
   }
 
-  .plus-commentaires{
-    width:90%;
-    margin:auto;
-    margin-top:20px;
-    height:30px;
-    background-color: #eeeeee;
-    border:2px solid #bdbdbd;
-    border-radius: 10px;
-    text-align: center;
+  .load-more{
+    margin-top:10px;
+    text-align:center;
   }
-
   .ellipse{
     overflow: hidden;
     text-overflow:ellipsis;
@@ -328,4 +341,27 @@ li.active{
 #rubriques{
   width:200px; !important
 }
+
+.picker__date-display{
+  background-color: #1976d2;
+} 
+
+.picker__day--selected{
+  background-color: #1976d2 !important;
+}
+.picker__day--today{
+  color:#1976d2 !important;
+}
+.picker__weekday-display{
+  background-color: #1565c0;
+}
+
+.picker__close{
+  color:#1976d2 !important;
+}
+
+.picker__today{
+  color:#1976d2 !important;
+}
+
 }

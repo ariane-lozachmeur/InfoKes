@@ -17,11 +17,14 @@ Route::get('/jeux','PagesController@jeux');
 
 Route::get('/getIK','PagesController@ik');
 
+Route::get('/logout','ConnectController@logout');
+
+
 Route::post('/connect','ConnectController@connect');
 
 Route::post('/login','ConnectController@login');
 
-Route::get('/logout','ConnectController@logout');
+Route::post('/ik/date','IKController@getByDate');
 
 Route::post('/article/{id}', 'ArticleController@update');
 

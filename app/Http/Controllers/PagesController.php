@@ -24,7 +24,7 @@ class PagesController extends Controller
     }
     public function home(){
     	$data=PagesController::dataCommune('home',true);
-    	$data['articles']=ArticleController::getArticlesOfWeek();
+    	$data['articles']=ArticleController::getArticlesOfWeek(6);
     	$data['actuskes']=ActusKesController::getActus();
     	return view('home',$data);
     }

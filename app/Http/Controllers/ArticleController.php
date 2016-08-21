@@ -145,6 +145,7 @@ class ArticleController extends Controller
     {
         $article = Article::find($id);
         $article->relu=true;
+        $article->ik_numero=$_POST['numero'];
         $article->save();
         return '{"message" : "success"}';
     }
@@ -152,16 +153,23 @@ class ArticleController extends Controller
     public function like($id){
         $article = Article::find($id);
         $article->like++;
-        Session::put("$id",'liked');
+        if (Session::has('liked')){
+            $liked = Session::get('liked');
+            $liked = array($id);
+            $liked = array_collapse([$liked, array($id)]);
+        } else { 
+            $liked = array($id);
+        }
+        Session::put('liked',$liked);
         $article->save();
         return '{"like":' +"$article->like"+'}';
     }
 
-    public static function getArticlesOfWeek(){
+    public static function getArticlesOfWeek($nombre){
         $articles = Article::whereBetween('published_at', array(Carbon::now()->subWeek(), Carbon::now()))
                             ->where('relu',true)
-                            ->latest('published_at')
-                            ->get();
+                            ->latest('like')
+                            ->paginate($nombre);
         return $articles;
     }
 
@@ -174,14 +182,13 @@ class ArticleController extends Controller
     }
 
     public static function comment(Request $request, $id){
-        $input=Request::all();
         $commentaire = New Commentaire;
-        $commentaire->auteur=$input['auteur'];
-        $commentaire->contenu=$input['contenu'];
+        $commentaire->auteur=$_POST['auteur'];
+        $commentaire->contenu=$_POST['contenu'];
         $commentaire->save();
         $article = Article::find($id);
         $article->commentaires()->attach($commentaire);
-        return redirect("article/$id");
+        return '{"message":"success"}';
     }
 
     public static function getLinkedArticle($cat_id, $number,$article_id){
