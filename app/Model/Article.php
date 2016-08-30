@@ -21,6 +21,10 @@ class Article extends Model
         return $this->belongsToMany('App\Model\Commentaire');
     }
 
+    public function ik(){
+        return $this->belongsTo('App\Model\IK');
+    }
+
     public static function saveFile($request,$type,$name){
     	if($request->hasFile($type) ) {
             $file = $request->file($type);

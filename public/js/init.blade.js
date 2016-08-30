@@ -248,7 +248,7 @@ $('#delete-ik').on('click', function (event) {
   var button = $(this)
   var id = button.data('id')
   console.log(id);
-$.ajax({
+  $.ajax({
     headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')},
     method: 'DELETE',
     url: '../'+id,
@@ -267,7 +267,7 @@ $.ajax({
 $('.connect').on('click', function (event) {
   var button = $(this)
   var role = button.data('role')
-$.ajax({
+  $.ajax({
     headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')},
     method: 'POST',
     url: 'connect',

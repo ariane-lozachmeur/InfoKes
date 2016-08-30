@@ -10,6 +10,7 @@ use App\Model\Categorie;
 use App\Http\Requests;
 use Carbon\Carbon;
 use Session;
+use App\Model\IK;
 
 
 class ArticleController extends Controller
@@ -25,7 +26,7 @@ class ArticleController extends Controller
     public function index()
     {
         $data=PagesController::dataCommune('articles',false);
-        $data['articles']=ArticleController::nonRelu();
+        $data['articles']=ArticleController::nonRelu(9);
         $data['actuskes']=ActusKesController::getActus();
         return view('articles.index',$data);
     }
@@ -173,8 +174,8 @@ class ArticleController extends Controller
         return $articles;
     }
 
-    public static function nonRelu(){
-        return Article::where('relu',false)->get();
+    public static function nonRelu($nombre){
+        return Article::where('relu',false)->paginate($nombre);
     }
 
     public static function relu(){
@@ -204,5 +205,9 @@ class ArticleController extends Controller
                         ->where('relu',true)
                         ->latest('published_at')
                         ->paginate($nombre);
+    }
+
+    public static function getFromIK($numero){
+        return IK::find($numero)->articles()->get();
     }
 }

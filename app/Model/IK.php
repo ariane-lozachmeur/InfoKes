@@ -3,12 +3,17 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Model\Article;
 
 class IK extends Model
 {
 	protected $table ='ik';
 
     protected $primaryKey = 'numero';
+
+    public function articles(){
+        return Article::where('ik_numero',$this->numero);
+    }
 
     public function saveIK($request,$numero,$titre){
         if($request->hasFile('pdf') ) {

@@ -11,7 +11,7 @@ class IKController extends Controller
 {
 
      public function __construct(){
-        $this->middleware('notik',['except'=>'index']);
+        $this->middleware('notik',['except'=>['index','getByDate','show']]);
     }
     /**
      * Display a listing of the resource.
@@ -65,6 +65,7 @@ class IKController extends Controller
         $ik = IK::findOrFail($numero);
         $data=PagesController::dataCommune('ik.show',false);
         $data['thisik']=$ik;
+        $data['articles']=ArticleController::getFromIK($numero);
         return view('ik.show',$data);
     }
 

@@ -20,7 +20,11 @@
 	<div class="row center">
 	    <a href="{{ url('ik') }}" class="waves-effect waves-light btn blue">Retour au sommaire</a>
 	</div>
+</div>
 
+@foreach($articles as $article)
+<a href ="..."> {{$article->titre}}</a>
+@endforeach
 @stop
 
 @section('footer')

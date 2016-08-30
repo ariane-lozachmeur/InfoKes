@@ -14,6 +14,19 @@
   cursor:pointer;
  }
 
+ .hidden{
+  display:none;
+ }
+
+ .alert{
+  background-color: #ffcdd2;
+  color :#b71c1c;
+  border:1px solid #b71c1c;
+  padding:10px;
+  border-radius: 5px;
+  margin-top:20px;
+ }
+
 i.huge{
    font-size:2.5em !important;
    margin-top:5px;
