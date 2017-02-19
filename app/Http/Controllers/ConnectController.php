@@ -15,9 +15,15 @@ class ConnectController extends Controller
     public function casLogin(){
         Cas::authenticate();
         $user = Cas::getCurrentUser();
+        $attributes = Cas::getAttributes();
+        $name = $user;
+        if (isset ($attributes["name"])) {
+            $name = $attributes["name"];
+        }
     	Session::put('user',$user);
+    	Session::put('name',$name);
     	Session::put('role',1);
-    	return redirect()->back()->with('message', "Tu es maintenant connecté en tant que $user");
+    	return redirect()->back()->with('message', "Tu es maintenant connecté en tant que $name");
     }
 
     public function login(Request $request){
