@@ -35,6 +35,7 @@ class ConnectController extends Controller
 
     public function logout(Request $request){
     	Session::flush();
+        Cas::logout();
     	return redirect()->back()->with('message', "Tu as bien été déconnecté.");
     }
 }
