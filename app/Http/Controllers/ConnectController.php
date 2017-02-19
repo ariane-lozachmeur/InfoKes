@@ -6,14 +6,23 @@ use Illuminate\Http\Request;
 use Session;
 use App\Model\User;
 use App\Http\Controller\UserController;
+use Cas;
 
 use App\Http\Requests;
 
 class ConnectController extends Controller
 {
-    public function connect(){
+    public function connect(){ //TODO remove
     	Session::put('role',$_POST['role']);
     	return "{'message:'success'}";
+    }
+
+    public function casLogin(){
+        Cas::authenticate();
+        $user = Cas::getCurrentUser();
+    	Session::put('user',$user);
+    	Session::put('role',1);
+    	return redirect()->back()->with('message', "Tu es maintenant connecté en tant que $user");
     }
 
     public function login(Request $request){

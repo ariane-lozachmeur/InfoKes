@@ -24,6 +24,8 @@ Route::post('/connect','ConnectController@connect');
 
 Route::post('/login','ConnectController@login');
 
+Route::get('/cas','ConnectController@casLogin');
+
 Route::post('/ik/date','IKController@getByDate');
 
 Route::post('/article/{id}', 'ArticleController@update');
@@ -50,10 +52,3 @@ Route::resource('actuskes','actusKesController');
 Route::resource('categorie','CatController');
 
 Route::resource('ik','IKController');
-
-
-
-
-
-
-
