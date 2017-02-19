@@ -19,9 +19,6 @@ Route::get('/getIK','PagesController@ik');
 
 Route::get('/logout','ConnectController@logout');
 
-
-Route::post('/connect','ConnectController@connect');
-
 Route::post('/login','ConnectController@login');
 
 Route::get('/cas','ConnectController@casLogin');

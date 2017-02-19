@@ -12,11 +12,6 @@ use App\Http\Requests;
 
 class ConnectController extends Controller
 {
-    public function connect(){ //TODO remove
-    	Session::put('role',$_POST['role']);
-    	return "{'message:'success'}";
-    }
-
     public function casLogin(){
         Cas::authenticate();
         $user = Cas::getCurrentUser();
