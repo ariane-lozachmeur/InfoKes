@@ -23,6 +23,8 @@ Route::post('/login','ConnectController@login');
 
 Route::get('/cas','ConnectController@casLogin');
 
+Route::get('/frankizlogin','ConnectController@frankizLogin');
+
 Route::post('/ik/date','IKController@getByDate');
 
 Route::post('/article/{id}', 'ArticleController@update');

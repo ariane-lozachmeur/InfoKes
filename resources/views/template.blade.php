@@ -44,7 +44,7 @@
     <div class="row">
         <div class="col m6 center">
             <br /><br /><br />
-            <a class="btn blue darken-3" href="{{url('cas')}}">Se connecter avec Frankiz</a>
+            <a class="btn blue darken-3" href="{{url('frankizlogin')}}">Se connecter avec Frankiz</a>
         </div>
         <div class="col m6">
         <h5>Connexion admin</h5>
