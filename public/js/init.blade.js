@@ -10,7 +10,7 @@ function loadMoreCommentaires(){
     method: 'GET',
     url: article.id+'?page='+i,
     data: "",
-    dataType:"json", 
+    dataType:"json",
   })
     .done(function(data) {
       $.each(data.data, function(){
@@ -47,13 +47,13 @@ $(document).ready(function(){
         method: 'POST',
         url: id+"/like",
         data: '',
-        dataType:'json', 
+        dataType:'json',
       })
         .done(function(data) {
           $('#badge-perso').text(data);
           $('#like').addClass('disabled');
           $('#badge-perso').addClass('grey-text');
-          console.log(session); 
+          console.log(session);
           //console.log(data);
         })
         .fail(function(data){
@@ -100,7 +100,7 @@ $(document).ready(function(){
     lastCharacter : {
       /*  Remove these characters from the end of the truncated text. */
       remove    : [ ' ', ',', ';', '.', '!', '?' ],
-      /*  Don't add an ellipsis if this array contains 
+      /*  Don't add an ellipsis if this array contains
         the last character of the truncated text. */
       noEllipsis  : []
     }
@@ -134,13 +134,13 @@ $(window).scroll(function() {
     	$("#navbar").addClass("transparent");
         $("#navbar").removeClass("blue darken-3");
     }
-    
+
     if( height  > background.outerHeight()-40 ) {
         $("#navbar").addClass("blue darken-3");
         $("#navbar").removeClass("transparent");
     }
-   
-}); 
+
+});
 
 })
 
@@ -168,7 +168,7 @@ $('.confirm').on('click', function (event){
     method: 'DELETE',
     url: 'categorie/'+id,
     data: "",
-    dataType:"json", 
+    dataType:"json",
   })
     .done(function(data) {
       location.reload();
@@ -187,7 +187,7 @@ $('.deleteActu').on('click', function (event){
     method: 'DELETE',
     url: '../../actuskes/'+id,
     data: "",
-    dataType:"json", 
+    dataType:"json",
   })
     .done(function(data) {
       window.location='../../';
@@ -210,7 +210,7 @@ $('.valider2').on('click', function(event){
     method: 'POST',
     url: id+'/valider',
     data: {numero : numero},
-    dataType:"json", 
+    dataType:"json",
   })
     .done(function(data) {
       window.location='../article';
@@ -234,7 +234,7 @@ $('#confirm-supprimer').on('click', function (event){
     method: 'DELETE',
     url: '',
     data: "",
-    dataType:"json", 
+    dataType:"json",
   })
     .done(function(data) {
       window.location='../';
@@ -253,7 +253,7 @@ $('#delete-ik').on('click', function (event) {
     method: 'DELETE',
     url: '../'+id,
     data: "",
-    dataType:"json", 
+    dataType:"json",
   })
     .done(function(data) {
       //console.log(data);
@@ -263,22 +263,3 @@ $('#delete-ik').on('click', function (event) {
       //console.log(data);
     })
 })
-
-$('.connect').on('click', function (event) {
-  var button = $(this)
-  var role = button.data('role')
-  $.ajax({
-    headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')},
-    method: 'POST',
-    url: 'connect',
-    data: { role : role },
-    dataType:"json", 
-  })
-    .done(function(data) {
-      //console.log(data);
-    })
-    .fail(function(data){
-      //console.log(data);
-    })
-})
-

@@ -19,10 +19,11 @@ Route::get('/getIK','PagesController@ik');
 
 Route::get('/logout','ConnectController@logout');
 
-
-Route::post('/connect','ConnectController@connect');
-
 Route::post('/login','ConnectController@login');
+
+Route::get('/cas','ConnectController@casLogin');
+
+Route::get('/frankizlogin','ConnectController@frankizLogin');
 
 Route::post('/ik/date','IKController@getByDate');
 
@@ -50,10 +51,3 @@ Route::resource('actuskes','actusKesController');
 Route::resource('categorie','CatController');
 
 Route::resource('ik','IKController');
-
-
-
-
-
-
-

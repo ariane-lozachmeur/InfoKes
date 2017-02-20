@@ -158,6 +158,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+        * Cas Service Providers
+        */
+        Xavrsl\Cas\CasServiceProvider::class,
+
     ],
 
     /*
@@ -205,6 +210,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Cas' => Xavrsl\Cas\Facades\Cas::class,
 
     ],
 

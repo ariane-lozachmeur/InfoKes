@@ -12,14 +12,14 @@
   <link href="{{url('css/materialize.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="{{url('css/style.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
    <link href="{{url('css/jquery.cleditor.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
-  
+
   @yield('header')
 </head>
 <body>
   @include('partials.navbar')
 
   @yield('homeHead')
-  
+
   <div class="container margin-top">
     <div class="row">
       @if($side==true)
@@ -40,24 +40,33 @@
   <!-- Modal for Login -->
 <div id="modalLogin" class="modal">
   <div class="modal-content">
-    <h4>Connection</h4>
-    {{Form::open(array('class'=>'col s12','url'=>'login'))}}
+    <h4>Connexion</h4>
     <div class="row">
-      <div class="input-field col s12">
-        <input name="login" type="text" class="{!! $errors->has('login') ? 'invalid' : '' !!}" value="{{old('login')}}">
-        <label for="titre">Login</label>
-        {!! $errors->first('login', '<small class="error-message">:message</small>') !!}
-      </div>
-      <div class="input-field col s12">
-        <input id="password" name="password" type="password" class="{!! $errors->has('published_at') ? 'invalid' : '' !!}">
-        <label for="published_at">Password</label>
-        {!! $errors->first('password', '<small class="error-message">:message</small>') !!}
-      </div>
-      <div class="input-field col s12 center-align">
-        <input type="submit" class="btn blue darken-3" value="Se connecter">
+        <div class="col m6 center">
+            <br /><br /><br />
+            <a class="btn blue darken-3" href="{{url('frankizlogin')}}">Se connecter avec Frankiz</a>
+        </div>
+        <div class="col m6">
+        <h5>Connexion admin</h5>
+        {{Form::open(array('class'=>'col s12','url'=>'login'))}}
+        <div class="row">
+          <div class="input-field col s12">
+            <input name="login" type="text" class="{!! $errors->has('login') ? 'invalid' : '' !!}" value="{{old('login')}}">
+            <label for="titre">Login</label>
+            {!! $errors->first('login', '<small class="error-message">:message</small>') !!}
+          </div>
+          <div class="input-field col s12">
+            <input id="password" name="password" type="password" class="{!! $errors->has('published_at') ? 'invalid' : '' !!}">
+            <label for="published_at">Password</label>
+            {!! $errors->first('password', '<small class="error-message">:message</small>') !!}
+          </div>
+          <div class="input-field col s12 center-align">
+            <input type="submit" class="btn blue darken-3" value="Se connecter">
+          </div>
+        </div>
+          {{Form::close()}}
       </div>
     </div>
-      {{Form::close()}}
   </div>
 </div>
 
@@ -94,7 +103,7 @@
   <script src="{{url('js/moment-with-locales.min.js')}}"></script>
   <script src="{{url('js/readmore.min.js')}}"></script>
   <script src="{{url('js/jquery.cleditor.min.js')}}"></script>
-  
+
   <script type="text/javascript">
     var session = {!!json_encode($session)!!}
   if (typeof(session.message) !== 'undefined') {
