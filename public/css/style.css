@@ -1,0 +1,380 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+ body{
+ 	background-color:#eeeeee;
+ }
+
+ a{
+  cursor:pointer;
+ }
+
+ .hidden{
+  display:none;
+ }
+
+ .alert{
+  background-color: #ffcdd2;
+  color :#b71c1c;
+  border:1px solid #b71c1c;
+  padding:10px;
+  border-radius: 5px;
+  margin-top:20px;
+ }
+
+i.huge{
+   font-size:2.5em !important;
+   margin-top:5px;
+ }
+
+ .nowrap{
+  white-space : nowrap;
+ }
+
+.centrer{
+  display: block;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width:35%;
+  min-width: 150px;
+}
+
+.date{
+  font-style: italic;
+  padding:0px !important;
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+
+.home-photo{
+    margin-top:-64px;
+}
+
+.home-titre{
+  margin-top:60px;
+  margin-bottom: -40px;
+}
+.nav-perso{
+	margin:0px 40px;
+}
+
+.card-header{
+  height:40px;
+}
+.card-image {
+ 	position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #000;
+}
+  
+.card-image img {
+    position: absolute;
+    display: block;
+    height: 100%; /* all images at least fill the height */
+    top: 50%; /* top, left, transform trick to vertically and horizontally center image */
+    left: 50%;
+  }
+
+.home-card .title{
+  margin-top: 20px;
+  line-height: 1em;
+  max-height:0.8em;
+  font-size:0.8em;
+}
+
+.home-card .menu{
+  margin-top:-18px;
+  padding-left:20px;
+}
+
+.big-padding{
+  padding:30px 10%;
+}
+
+.form-container{
+  padding:0px 30px 20px 30px;
+}
+
+.message_success{
+  background-color:#00c853; /* green accent-4 */
+ }
+
+.message_error{
+  background-color: #d50000;
+  }
+
+  .bloc-padding{
+    padding:20px 50px 35px 50px;
+  }
+
+  .article-img{
+    padding:0px !important;
+    margin-right:20px;
+    margin-bottom:0px;
+  }
+  .contenu{
+    text-align:justify !important;
+  }
+  .article-bandeau{
+    margin:-20px -50px 0px -50px;
+    height: 60px;
+    display:flex;
+    align-items: center;
+    justify-content: center
+  }
+  .article-header{
+    padding-bottom:20px !important;
+    margin-bottom:10px;
+    border-bottom:1px solid #e0e0e0;
+  }
+
+  .article-presentation{
+    font-size:1.2em;
+    font-style: italic;
+    text-align:justify;
+  }
+  .titre{
+    margin-bottom: 0px;
+    text-align:center;
+  }
+  .auteur{
+    margin-top:10px;
+    font-style: italic;
+    white-space: nowrap;
+    text-align: right
+
+  }
+  .margin-top{
+    margin-top: 75px;
+  }
+
+  .actuskes-container{
+    width: 80%;
+    margin:auto !important;
+    margin-top:-55px !important;
+  }
+
+  h5.small{
+    font-size: 20px !important;
+    font-weight: 300;
+  }
+
+  .commentaires-form{
+    border-top: 3px solid #e0e0e0;
+    background-color: #eeeeee
+  }
+
+  .justify{
+    text-align:justify;
+  }
+
+  .commentaire{
+    font-size: 1em;
+    line-height: 1.5em;
+    max-height: 9em;
+  }
+
+  .load-more{
+    margin-top:10px;
+    text-align:center;
+  }
+  .ellipse{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    height:1.2em;
+  }
+
+.color-input{
+  width:100px;
+  padding:0px 10px;
+  margin-top: 10px;
+  margin-left:-5px;
+}
+
+.actusKes{
+  max-height:15em;
+}
+
+.inline{
+  display:inline;
+}
+
+.btn-edit{
+  margin-right:15px;
+}
+
+.bandeau-rubrique{
+  margin:-20px;
+  margin-bottom:10px;
+  height: 1.6em;
+  font-size: 1.4em;
+  font-weight: bold;
+  text-align:center;
+}
+
+.badge-like{
+  margin-top:-35px;
+  border-radius: 3px}
+
+.side-btn{
+  margin-bottom:20px;
+  width:100%
+}
+
+.thumb{
+  margin-top:5px;
+  padding-bottom:-3px;
+}
+
+.rubrique-index{
+  font-size: 1.3em;
+  height: 1.8em;
+}
+
+.pin-top{
+  margin-top: 100px;
+}
+
+.pinned {
+  margin-right: 50%;
+}
+
+@media only screen and (min-width: 601px) {
+  .pinned {
+    margin-right: 7.5% ;
+  }
+}
+
+@media only screen and (min-width: 993px) {
+  .pinned {
+    margin-right: 10%;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .pinned {
+    margin-right: 13.5%;
+  }
+}
+
+.anchor{
+    display: block;
+    position: relative;
+    top: -250px;
+    visibility: hidden;
+}
+
+#badge-perso{
+  background-color:#fff;
+  color:#1e88e5;
+  float: left;
+  margin-top: 7px;
+  margin-right: 10px;
+  height:20px;
+  border-radius: 25%;
+  line-height: 1.5em;
+  padding:0px 5px;
+}
+
+.error-message{
+  color:red;
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+.header-cat{
+  height:150px;
+  justify-content: center
+}
+
+.actuskes-contenu{
+  font-size: 1em !important;
+  line-height: 1.5em !important;
+  max-height: 9em !important;
+}
+
+.ik-header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ik-une{
+  position: relative;
+  padding:0px !important;
+  width:90% !important;
+  margin:0 !important;
+}
+
+.ik-une:hover { 
+  opacity: 0.7;
+}
+
+.ik-wrapper{
+  margin: 10px 4% !important;
+  padding:0 !important;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ik-lien{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ik-titre{
+  display:flex;
+  align-items: center;
+  font-size: 1.5em;
+  margin-top:10px;
+  color:#000;
+}
+
+.ik-titre .dotdotdot{
+  height: 1.2em;
+}
+
+li.active{
+  background-color: #1565c0 !important;
+}
+
+#rubriques{
+  width:200px; !important
+}
+
+.picker__date-display{
+  background-color: #1976d2;
+} 
+
+.picker__day--selected{
+  background-color: #1976d2 !important;
+}
+.picker__day--today{
+  color:#1976d2 !important;
+}
+.picker__weekday-display{
+  background-color: #1565c0;
+}
+
+.picker__close{
+  color:#1976d2 !important;
+}
+
+.picker__today{
+  color:#1976d2 !important;
+}
+
+}
