@@ -16,4 +16,5 @@ class Commentaire extends Model
     public function user(){
     	return $this->belongsToMany('App\User');
     }
+
 }

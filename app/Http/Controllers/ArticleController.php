@@ -18,6 +18,7 @@ class ArticleController extends Controller
     public function __construct(){
         $this->middleware('notik',['except'=>['show','create','store','like','comment']]);
         $this->middleware('notmember');
+
     }
     /**
      * Display a listing of the resource.
@@ -240,4 +241,5 @@ class ArticleController extends Controller
         $articles = Article::where('fichier','!=',NULL)->paginate(10);
         return $articles;
     }
+
 }

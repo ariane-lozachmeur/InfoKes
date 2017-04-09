@@ -28,6 +28,7 @@ class PagesController extends Controller
         if (count($data['articles'])<6){
             $data['articles'] = ArticleController::getLatestArticles(6);
         }
+
     	$data['actuskes']=ActusKesController::getActus();
     	return view('home',$data);
     }

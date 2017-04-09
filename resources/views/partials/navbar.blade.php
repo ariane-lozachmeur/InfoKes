@@ -11,6 +11,7 @@
   <li class="divider"></li>
   <li class="white"><a class="blue-text text-darken-2" href="{{url('article/fichier')}}">Récupérer les articles (fichiers)</a></li>
   <li class="divider"></li>
+
     <li class="white "><a class="blue-text text-darken-2" href="{{url('khote')}}">Voir les khotes</a></li>
   <li class="divider"></li>
     <li class="white "><a class="blue-text text-darken-2" href="{{url('categorie')}}">Gérer les rubriques</a></li>
@@ -90,3 +91,4 @@
   </div>
 </nav>
 </div>
+

@@ -13,6 +13,7 @@ class IKController extends Controller
      public function __construct(){
         $this->middleware('notik',['except'=>['index','getByDate','show']]);
         $this->middleware('notmember');
+
     }
     /**
      * Display a listing of the resource.

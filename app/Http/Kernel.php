@@ -53,5 +53,6 @@ class Kernel extends HttpKernel
         'notkessier' => \App\Http\Middleware\RedirectIfNotKessier::class,
         'notik' => \App\Http\Middleware\RedirectIfNotIK::class,
         'notmember' => \App\Http\Middleware\RedirectIfNotAuthenticated::class,
+
     ];
 }

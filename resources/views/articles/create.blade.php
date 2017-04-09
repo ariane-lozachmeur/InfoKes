@@ -108,5 +108,3 @@
   <script src="{{url('../ckeditor/config.js')}}"></script>
   <script src="{{url('../ckeditor/styles.js')}}"></script>
   <script>CKEDITOR.replace( 'contenu' )</script>
-
-@stop

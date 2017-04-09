@@ -12,6 +12,7 @@ class KhoteController extends Controller
     public function __construct(){
         $this->middleware('notkessier',['except'=>['create', 'store'] ]);
         $this->middleware('notmember');
+
     }
     /**
      * Display a listing of the resource.

@@ -19,6 +19,7 @@
 	</ul>
 </div>
 
+<<<<<<< HEAD
 @if (isset($session['role']) && $session['role']>=1)
 <h2 class="center-align home-titre"> Dans l'IK cette semaine </h2>
 @else
@@ -28,21 +29,32 @@
 </div>
 </div>
 @endif
+=======
+<h2 class="center-align home-titre"> Dans l'IK cette semaine </h2>
+>>>>>>> 16cf397f5c8b94b6e497e954f56c7ff001fd8b26
 
 @stop
 
 @section('content')
 
+<<<<<<< HEAD
 @if (isset($session['role']) && $session['role']>=1)
 @include('partials.articles')
 @endif
+=======
+@include('partials.articles')
+>>>>>>> 16cf397f5c8b94b6e497e954f56c7ff001fd8b26
 
 @stop
 
 @section('side')
+<<<<<<< HEAD
 @if (isset($session['role']) && $session['role']>=1)
 	@include('partials.side-actuskes')
 @endif
+=======
+	@include('partials.side-actuskes')
+>>>>>>> 16cf397f5c8b94b6e497e954f56c7ff001fd8b26
 @stop
 @section('footer')
 
